@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/resources/new' => 'resources#new'
   post '/resources' => 'resources#create'
   get '/resources/:id/edit' => 'resources#edit'
+  get '/resources/:id/share' => 'resources#share_form'
+  post '/resources/:id/share' => 'resources#share'
   get '/resources/:id' => 'resources#show'
   patch '/resources/:id' => 'resources#update'
   delete '/resources/:id' => 'resources#destroy'
