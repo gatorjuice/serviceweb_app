@@ -66,7 +66,7 @@ class ResourcesController < ApplicationController
     @client.account.messages.create({
       :from => '+17089548869',
       :to => send_to_number,
-      :body => "#{name}-#{phone_number}-#{address}-#{description}"    
+      :body => "Please call #{name}:\n#{phone_number}\nThey are located at:\n#{address}\n#{description}"    
       })
   end
 
