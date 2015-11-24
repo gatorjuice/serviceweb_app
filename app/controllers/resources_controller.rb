@@ -52,5 +52,22 @@ class ResourcesController < ApplicationController
     @resource = Resource.find_by(id: params[:id])
   end
 
+  def share
+    send_to_number = params[:send_to_number]
+    name = params[:name]
+    phone_number = params[:phone_number]
+    address = params[:address]
+    description = params[:description]
+
+    account_sid = open('lib/assets/.api_id').read()
+    auth_token = open('lib/assets/.api_token').read()
+
+    @client = Twilio::REST::Client.new account_sid, auth_token 
+    @client.account.messages.create({
+      :from => '+17089548869',
+      :to => send_to_number,
+      :body => "#{name}-#{phone_number}-#{address}-#{description}"    
+      })
+  end
 
 end

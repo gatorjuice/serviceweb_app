@@ -11,3 +11,6 @@
 /log/*
 !/log/.keep
 /tmp
+
+/lib/assets/.api_id
+/lib/assets/.api_token
