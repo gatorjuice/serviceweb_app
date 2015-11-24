@@ -27,3 +27,17 @@
     top: 2px;
     
 }
+
+.thumbnail {
+  text-align: center;
+  padding: 20px;
+
+  :hover {
+    text-decoration: none;
+  }
+}
+
+.glyphicon {
+  width: 100%;
+  font-size: -webkit-xxx-large;
+}

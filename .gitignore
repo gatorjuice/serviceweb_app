@@ -12,5 +12,5 @@
 !/log/.keep
 /tmp
 
-/lib/assets/.api_id
-/lib/assets/.api_token
+/lib/assets/.twilio_api_id
+/lib/assets/.twilio_api_token
