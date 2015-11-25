@@ -13,17 +13,20 @@
 
 ActiveRecord::Schema.define(version: 20151120212353) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "resources", force: :cascade do |t|
-    t.string   "resource_type", limit: 255
-    t.string   "name",          limit: 255
-    t.string   "address",       limit: 255
-    t.string   "city",          limit: 255
-    t.string   "state",         limit: 255
-    t.string   "zip_code",      limit: 255
-    t.string   "phone_number",         limit: 255
-    t.string   "description",   limit: 255
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "resource_type"
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "description"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
   end
 
 end

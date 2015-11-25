@@ -13,13 +13,14 @@ class ResourcesController < ApplicationController
   end
 
   def create
+
     Resource.create(
-      resource_type: params[:resource_type],
+      resource_type: "#{params[:food]} #{params[:health]} #{params[:shelter]}",
       name: params[:name],
       address: params[:address],
       city: params[:city],
       zip_code: params[:zip_code],
-      phone_number: params[:phone_number],
+      phone: params[:phone],
       description: params[:description]
       )
     flash[:success] = "Resource Successfully Created"
@@ -42,7 +43,7 @@ class ResourcesController < ApplicationController
       address: params[:address],
       city: params[:city],
       zip_code: params[:zip_code],
-      phone_number: params[:phone_number],
+      phone: params[:phone],
       description: params[:description]
       )
     flash[:info] = "Resource Successfully Updated"
@@ -64,7 +65,7 @@ class ResourcesController < ApplicationController
   def share
     send_to_number = params[:send_to_number]
     name = params[:name]
-    phone_number = params[:phone_number]
+    phone = params[:phone]
     address = params[:address]
     description = params[:description]
 
@@ -75,7 +76,7 @@ class ResourcesController < ApplicationController
     @client.account.messages.create({
       :from => '+17089548869',
       :to => send_to_number,
-      :body => "Please call #{name}:\n#{phone_number}\nThey are located at:\n#{address}\n#{description}"    
+      :body => "Please call #{name}:\n#{phone}\nThey are located at:\n#{address}\n#{description}"    
       })
   end
 
