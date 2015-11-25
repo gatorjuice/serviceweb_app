@@ -20,9 +20,24 @@
       <h1>ServiceWeb</h1>
       <h2><small>many resources. one mind.</small></h2>
     </div>
+    <% flash.each do |type, message| %>
+    <div class="alert alert-<%= type %> alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong><%= message %></strong>
+    </div>
+    <% end %>
+
+
+    <%= yield %>
+
+
+
+
+
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Add A New Resource</h3>
+        <%= link_to 'Add Resource', '/resources/new', class: "btn btn-warning" %>
+        <h4>or select icon to search existing resources near you.</h4>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -53,7 +68,6 @@
         </div>
       </div>
     </div>
-    <%= yield %>
   </div>
 </body>
 </html>

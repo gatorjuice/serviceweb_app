@@ -1,5 +1,10 @@
 class ResourcesController < ApplicationController
 
+  def home
+    
+  end
+
+
   def index
     @resources = Resource.all
   end
@@ -17,7 +22,8 @@ class ResourcesController < ApplicationController
       phone_number: params[:phone_number],
       description: params[:description]
       )
-    redirect_to '/resources'
+    flash[:success] = "Resource Successfully Created"
+    redirect_to '/home'
   end
 
   def show
@@ -39,13 +45,16 @@ class ResourcesController < ApplicationController
       phone_number: params[:phone_number],
       description: params[:description]
       )
-    redirect_to '/resources'
+    flash[:info] = "Resource Successfully Updated"
+    redirect_to '/home'
   end
 
   def destroy
     @resource = Resource.find_by(id: params[:id])
     @resource.destroy
-    redirect_to "/resources"
+    redirect_to "/home"
+    flash[:danger] = "Resource Successfully Deleted"
+    redirect_to "/home"
   end
 
   def share_form

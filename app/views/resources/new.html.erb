@@ -1,10 +1,14 @@
-<%= form_tag '/resources', method: :post do %>
-<p><%= label_tag(:resource_type, "Resource Type:") %> <%= text_field_tag(:resource_type) %></p>
-<p><%= label_tag(:name, "name:") %> <%= text_field_tag(:name) %></p>
-<p><%= label_tag(:address, "Address:") %> <%= text_field_tag(:address) %></p>
-<p><%= label_tag(:city, "City:") %> <%= text_field_tag(:city) %></p>
-<p><%= label_tag(:zip_code, "Zip Code:") %> <%= text_field_tag(:zip_code) %></p>
-<p><%= label_tag(:phone_number, "Phone:") %> <%= text_field_tag(:phone_number) %></p>
-<p><%= label_tag(:description, "Description:") %> <%= text_field_tag(:description) %></p>
-<p><%= submit_tag("Add") %></p>
-<% end %>
+<div class="row">
+  <div class="col-xs-4 new-resource-form">
+    <%= form_tag '/resources', method: :post do %>
+    <p><%= label_tag(:resource_type, "Resource Type:") %> <%= select_tag(:resource_type) %></p>
+    <p><%= label_tag(:name, "name:") %> <%= text_field_tag(:name) %></p>
+    <p><%= label_tag(:address, "Address:") %> <%= text_field_tag(:address) %></p>
+    <p><%= label_tag(:city, "City:") %> <%= text_field_tag(:city) %></p>
+    <p><%= label_tag(:zip_code, "Zip Code:") %> <%= text_field_tag(:zip_code) %></p>
+    <p><%= label_tag(:phone_number, "Phone:") %> <%= text_field_tag(:phone_number) %></p>
+    <p><%= label_tag(:description, "Description:") %> <%= text_field_tag(:description) %></p>
+    <p><%= submit_tag("Add") %></p>
+    <% end %>
+  </div>
+</div>

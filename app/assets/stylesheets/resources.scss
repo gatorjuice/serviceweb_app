@@ -19,6 +19,10 @@
     }
     
 }
+.new-resource-form {
+  text-align: right;
+}
+
 
 .btn-group {
     
@@ -27,14 +31,24 @@
     top: 2px;
     
 }
+.panel {
 
+  h3 {
+    color: rgb(38, 81, 128);
+    margin-bottom: 0;
+  }
+  h4 {
+    margin: 5px auto 0 auto;
+  }
+  a {
+    text-decoration: none;
+  }
+}
 .thumbnail {
   text-align: center;
   padding: 20px;
+  margin: 0;
 
-  :hover {
-    text-decoration: none;
-  }
 }
 
 .glyphicon {

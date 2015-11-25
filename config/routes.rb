@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get "/home" => 'resources#home'
 
   get '/resources' => 'resources#index'
   get '/resources/new' => 'resources#new'
