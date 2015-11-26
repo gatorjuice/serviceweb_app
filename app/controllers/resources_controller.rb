@@ -15,7 +15,9 @@ class ResourcesController < ApplicationController
   def create
 
     Resource.create(
-      resource_type: "#{params[:food]} #{params[:health]} #{params[:shelter]}",
+      food: params[:food],
+      health: params[:health],
+      shelter: params[:shelter],
       name: params[:name],
       address: params[:address],
       city: params[:city],
@@ -24,7 +26,7 @@ class ResourcesController < ApplicationController
       description: params[:description]
       )
     flash[:success] = "Resource Successfully Created"
-    redirect_to '/home'
+    redirect_to '/resources'
   end
 
   def show
@@ -38,7 +40,9 @@ class ResourcesController < ApplicationController
   def update
     @resource = Resource.find_by(id: params[:id])
     @resource.update(
-      resource_type: params[:resource_type],
+      food: params[:food],
+      health: params[:health],
+      shelter: params[:shelter],
       name: params[:name],
       address: params[:address],
       city: params[:city],
@@ -47,15 +51,14 @@ class ResourcesController < ApplicationController
       description: params[:description]
       )
     flash[:info] = "Resource Successfully Updated"
-    redirect_to '/home'
+    redirect_to '/resources'
   end
 
   def destroy
     @resource = Resource.find_by(id: params[:id])
     @resource.destroy
-    redirect_to "/home"
     flash[:danger] = "Resource Successfully Deleted"
-    redirect_to "/home"
+    redirect_to "/resources"
   end
 
   def share_form

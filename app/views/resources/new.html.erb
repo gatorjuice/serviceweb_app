@@ -2,9 +2,9 @@
   <div class="col-xs-4 new-resource-form">
     <%= form_tag '/resources', method: :post do %>
     <p><%= label_tag(:resource_type, "Resource Type:") %></p>
-    <%= label_tag(:food, "Food:") %><span> </span><%= check_box_tag :food, "food", false %>
-    <%= label_tag(:health, "Health:") %><span> </span><%= check_box_tag :health, "health", false %>
-    <%= label_tag(:shelter, "Shelter:") %><span> </span><%= check_box_tag :shelter, "shelter", false %>
+    <%= label_tag(:food, "Food:") %><span> </span><%= check_box_tag :food, true %>
+    <%= label_tag(:health, "Health:") %><span> </span><%= check_box_tag :health, true %>
+    <%= label_tag(:shelter, "Shelter:") %><span> </span><%= check_box_tag :shelter, true %>
     <p><%= label_tag(:name, "name:") %> <%= text_field_tag(:name) %></p>
     <p><%= label_tag(:address, "Address:") %> <%= text_field_tag(:address) %></p>
     <p><%= label_tag(:city, "City:") %> <%= text_field_tag(:city) %></p>

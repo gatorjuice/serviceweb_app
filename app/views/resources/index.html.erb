@@ -1,8 +1,8 @@
 <h2>List All Resources</h2>
 <table style="width:100%">
   <tr>
+    <th>Services</th>
     <th>Resource Name</th>
-    <th>Resource Type</th>
     <th>Address</th>
     <th>City</th>
     <th>Zip Code</th>
@@ -15,7 +15,7 @@
       <%= resource.name %>
       <% end %>
     </td>
-    <td><%= resource.resource_type %></td>
+    <td><%= resource.display_resources %>
     <td><%= resource.address %></td>
     <td><%= resource.city %></td>
     <td><%= resource.zip_code %></td>

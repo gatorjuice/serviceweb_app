@@ -17,7 +17,9 @@
           <button type='button' class='btn btn-primary'>Sign In</button>
         </div>
       </div>
+      <%= link_to "/resources" do %>
       <h1>ServiceWeb</h1>
+      <% end %>
       <h2><small>many resources. one mind.</small></h2>
     </div>
     <% flash.each do |type, message| %>
@@ -27,8 +29,9 @@
     </div>
     <% end %>
 
-
+        
     <%= yield %>
+
 
 
 
