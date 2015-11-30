@@ -1,36 +1,42 @@
-<%= form_tag "/resources/#{@resource.id}", method: :patch do %>
-<div class="form_group">
-<%= label_tag(:food, "Food:") %>
-<%= check_box_tag :food, true %> 
-</div> 
-<div class="form-group">
-<%= label_tag(:name, "name:") %> 
-<%= text_field_tag(:name, @resource.name) %>
+<div class="row">
+  <div class="col-xs-4 new-resource-form">
+    <%= form_tag "/resources/#{@resource.id}", method: :patch do %>
+    <div class="form-group">
+      <%= label_tag(:food, "Food:") %>
+      <%= check_box_tag :food, 1, @resource.food ? true : false %>  
+      <%= label_tag(:health, "Health:") %>
+      <%= check_box_tag :health, 1, @resource.health ? true : false %>  
+      <%= label_tag(:shelter, "Shelter:") %>
+      <%= check_box_tag :shelter, 1, @resource.shelter ? true : false %> 
+    </div> 
+    <div class="form-group">
+      <%= label_tag(:name, "name:") %> 
+      <%= text_field_tag(:name, @resource.name) %>
+    </div>
+    <div class="form-group">
+      <%= label_tag(:address, "Address 1:") %>
+      <%= text_field_tag(:address, @resource.address) %>
+    </div>
+    <div class="form-group">
+      <%= label_tag(:city, "City:") %> 
+      <%= text_field_tag(:city, @resource.city) %>
+    </div>
+    <div class="form-group">
+      <%= label_tag(:zip_code, "Zip Code:") %> 
+      <%= text_field_tag(:zip_code, @resource.zip_code) %>
+    </div>
+    <div class="form-group">
+      <%= label_tag(:phone, "Phone:") %> 
+      <%= text_field_tag(:phone, @resource.phone) %>
+    </div>
+    <div class="form-group">
+      <%= label_tag(:description, "Description:") %> <%= 
+      text_field_tag(:description, @resource.description) %>
+    </div>
+    <div>
+      <%= submit_tag "Update", class: "btn btn-info" %>
+      <%= link_to "Delete", "/resources/#{@resource.id}", method: :delete, class: "btn btn-danger" %>
+    </div>
+    <% end %>
+  </div>
 </div>
-<div class="form-group">
-<%= label_tag(:address, "Address 1:") %>
-<%= text_field_tag(:address, @resource.address) %>
-</div>
-<div class="form-group">
-<%= label_tag(:city, "City:") %> 
-<%= text_field_tag(:city, @resource.city) %>
-</div>
-<div class="form-group">
-<%= label_tag(:zip_code, "Zip Code:") %> 
-<%= text_field_tag(:zip_code, @resource.zip_code) %>
-</div>
-<div class="form-group">
-<%= label_tag(:phone, "Phone:") %> 
-<%= text_field_tag(:phone, @resource.phone) %>
-</div>
-<div class="form-group">
-<%= label_tag(:description, "Description:") %> <%= 
-text_field_tag(:description, @resource.description) %>
-</div>
-<div>
-<%= submit_tag "Update", class: "btn btn-info" %>
-<%= link_to "Delete", "/resources/#{@resource.id}", method: :delete, class: "btn btn-danger" %>
-</div>
-<% end %>
-
-
