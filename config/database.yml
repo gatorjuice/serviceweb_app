@@ -47,5 +47,3 @@ production:
   encoding: unicode
   database: serviceweb_app_production
   pool: 5
-  username: serviceweb_appp
-  password Kqtrugs80:

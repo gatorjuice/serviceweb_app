@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 # Use mysql as the database for Active Record
 gem 'pg'
+gem 'rails_12factor', group: :production
 #used to send sms messages
 gem 'twilio-ruby', '~> 4.2.1'
 # Use SCSS for stylesheets
