@@ -1,12 +1,22 @@
 class ResourcesController < ApplicationController
 
   def home
-    
+
   end
 
 
   def index
-    @resources = Resource.all
+    if params[:type]
+      if params[:type] == "food"
+        @resources = Resource.where("food = ?", "true")
+      elsif params[:type] == "health"
+        @resources = Resource.where("health = ?", "true")
+      elsif params[:type] == "shelter"
+        @resources = Resource.where("shelter = ?", "true")
+      end
+    else
+      @resources = Resource.all
+    end
   end
 
   def new   
