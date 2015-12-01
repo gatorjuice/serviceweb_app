@@ -23,7 +23,6 @@ class ResourcesController < ApplicationController
   end
 
   def create
-    coordinates = Geocoder.coordinates("#{params[:address]}, #{params[:city]}, #{params[:state]}")
     Resource.create(
       food: params[:food],
       health: params[:health],
@@ -31,12 +30,9 @@ class ResourcesController < ApplicationController
       name: params[:name],
       address: params[:address],
       city: params[:city],
-      state: params[:state].upcase,
       zip_code: params[:zip_code],
       phone: params[:phone],
-      description: params[:description],
-      latitude: coordinates[0],
-      longitude: coordinates[1]
+      description: params[:description]
       )
     flash[:success] = "Resource Successfully Created"
     redirect_to '/resources'
@@ -58,8 +54,7 @@ class ResourcesController < ApplicationController
       shelter: params[:shelter],
       name: params[:name],
       address: params[:address],
-      city: params[:city].upcase,
-      state: params[:state],
+      city: params[:city],
       zip_code: params[:zip_code],
       phone: params[:phone],
       description: params[:description]
