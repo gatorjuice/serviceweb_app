@@ -8,14 +8,14 @@ class ResourcesController < ApplicationController
   def index
     if params[:type]
       if params[:type] == "food"
-        @resources = Resource.where("food = ?", "true")
+        @resources = Resource.where("food = ?", "true").order(:name)
       elsif params[:type] == "health"
-        @resources = Resource.where("health = ?", "true")
+        @resources = Resource.where("health = ?", "true").order(:name)
       elsif params[:type] == "shelter"
-        @resources = Resource.where("shelter = ?", "true")
+        @resources = Resource.where("shelter = ?", "true").order(:name)
       end
     else
-      @resources = Resource.all
+      @resources = Resource.order(:name)
     end
   end
 
@@ -23,7 +23,6 @@ class ResourcesController < ApplicationController
   end
 
   def create
-
     Resource.create(
       food: params[:food],
       health: params[:health],

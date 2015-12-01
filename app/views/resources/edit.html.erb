@@ -33,9 +33,9 @@
       <%= label_tag(:description, "Description:") %> <%= 
       text_field_tag(:description, @resource.description) %>
     </div>
-    <div>
-      <%= submit_tag "Update", class: "btn btn-info" %>
-      <%= link_to "Delete", "/resources/#{@resource.id}", method: :delete, class: "btn btn-danger" %>
+    <div class="form-group">
+    <%= submit_tag "Update", class: "btn btn-info" %>
+    <%= link_to "Delete", "/resources/#{@resource.id}", method: :delete, class: "btn btn-danger" %>
     </div>
     <% end %>
   </div>

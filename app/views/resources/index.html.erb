@@ -1,7 +1,7 @@
-<h2>List All Resources</h2>
 <table style="width:100%">
   <tr>
     <th>Resource Name</th>
+    <th></th>
     <th>Services</th>
     <th>Address</th>
     <th>City</th>
@@ -13,6 +13,11 @@
     <td>
       <%= link_to "/resources/#{resource.id}" do %>
       <%= resource.name %>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to "/resources/#{resource.id}/edit" do %>
+      edit
       <% end %>
     </td>
     <td><%= resource.display_resources %>

@@ -1,14 +1,15 @@
 class Resource < ActiveRecord::Base
   has_many :images
+  belongs_to :user
   def resource_types
     resources = []
-    if food == true
+    if food
       resources << "food"
     end
-    if health == true
+    if health
       resources << "health"
     end
-    if shelter == true
+    if shelter
       resources << "shelter"
     end 
     resources   
