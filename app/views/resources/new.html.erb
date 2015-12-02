@@ -1,38 +1,57 @@
 <div class="row">
-  <div class="col-xs-4 new-resource-form">
-    <%= form_tag '/resources', method: :post do %>
+  <div class="col-xs-6 new-resource-form">
+    <%= form_tag '/resources', class: "form-horizontal", method: :post do %>
     <div class="form-group">
-      <%= label_tag(:resource_type, "Resource Type:") %>
-      <%= label_tag(:food, "Food:") %><span> </span><%= check_box_tag :food, true %>
-      <%= label_tag(:health, "Health:") %><span> </span><%= check_box_tag :health, true %>
-      <%= label_tag(:shelter, "Shelter:") %><span> </span><%= check_box_tag :shelter, true %>
+      <%= label_tag :resource_type, "Resource Type:", class: "col-sm-3 control-label" %>
+      <label class="checkbox-inline col-sm-2">
+        <%= check_box_tag :food, true %> Food
+      </label>
+      <label class="checkbox-inline col-sm-2">
+        <%= check_box_tag :health, true %> Health
+      </label>
+      <label class="checkbox-inline col-sm-2">
+        <%= check_box_tag :shelter, true %> Shelter
+      </label>
     </div>
     <div class="form-group">   
-      <%= label_tag(:name, "name:") %> 
-      <%= text_field_tag(:name) %>
+      <%= label_tag :name, "Name:", class: "col-sm-3 control-label" %> 
+      <div class="col-sm-9">
+        <%= text_field_tag :name, nil, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">   
+      <%= label_tag :address, "Address:", class: "col-sm-3 control-label" %> 
+      <div class="col-sm-9">
+        <%= text_field_tag :address, nil, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">   
+      <%= label_tag :city, "City:", class: "col-sm-3 control-label" %> 
+      <div class="col-sm-9">
+        <%= text_field_tag :city, nil, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">   
+      <%= label_tag :zip_code, "Zip Code:", class: "col-sm-3 control-label" %> 
+      <div class="col-sm-9">
+        <%= text_field_tag :zip_code, nil, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">   
+      <%= label_tag :phone, "Phone Number:", class: "col-sm-3 control-label" %> 
+      <div class="col-sm-9">
+        <%= phone_field_tag :phone, nil, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">   
+      <%= label_tag :description, "Description:", class: "col-sm-3 control-label" %> 
+      <div class="col-sm-9">
+        <%= text_area_tag :description, nil, class: "form-control" %>
+      </div>
     </div>
     <div class="form-group">
-      <%= label_tag(:address, "Address:") %> 
-      <%= text_field_tag(:address) %>
-    </div>
-    <div class="form-group">
-      <%= label_tag(:city, "City:") %> 
-      <%= text_field_tag(:city) %>
-    </div>
-    <div class="form-group">
-      <%= label_tag(:zip_code, "Zip Code:") %> 
-      <%= text_field_tag(:zip_code) %>
-    </div>
-    <div class="form-group">
-      <%= label_tag(:phone, "Phone:") %> 
-      <%= text_field_tag(:phone) %>
-    </div>
-    <div class="form-group">
-      <%= label_tag(:description, "Description:") %> 
-      <%= text_field_tag(:description) %>
-    </div>
-    <div class="form-group">
-    <%= submit_tag "Add", class: "btn btn-success" %>
+      <div class="col-sm-6"></div>
+      <%= submit_tag "Add", class: "btn btn-success" %>
     </div>
     <% end %>
   </div>
