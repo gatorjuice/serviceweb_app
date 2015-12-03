@@ -1,6 +1,7 @@
 class Resource < ActiveRecord::Base
   has_many :images
   belongs_to :user
+
   def resource_types
     resources = []
     if food

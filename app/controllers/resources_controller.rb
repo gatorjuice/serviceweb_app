@@ -6,6 +6,8 @@ class ResourcesController < ApplicationController
 
 
   def index
+
+
     if params[:type]
       if params[:type] == "food"
         @resources = Resource.where("food = ?", "true").order(:name)
