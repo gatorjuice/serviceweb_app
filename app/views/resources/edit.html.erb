@@ -34,7 +34,7 @@
     <div class="form-group">   
       <%= label_tag :zip_code, "Zip Code:", class: "col-xs-3 control-label" %> 
       <div class="col-xs-9">
-        <%= text_field_tag :zip_code, @resource.zip_code, class: "form-control" %>
+        <%= number_field_tag :zip_code, @resource.zip_code, class: "form-control" %>
       </div>
     </div>
     <div class="form-group">   
