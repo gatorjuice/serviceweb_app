@@ -36,7 +36,8 @@ class ResourcesController < ApplicationController
       city: params[:city],
       zip_code: params[:zip_code],
       phone: params[:phone],
-      description: params[:description]
+      description: params[:description],
+      full_street_address: params[:full_street_address]
       )
     flash[:success] = "Resource Successfully Created"
     redirect_to '/resources'
@@ -61,7 +62,8 @@ class ResourcesController < ApplicationController
       city: params[:city],
       zip_code: params[:zip_code],
       phone: params[:phone],
-      description: params[:description]
+      description: params[:description],
+      full_street_address: params[:full_street_address]
       )
     flash[:info] = "Resource Successfully Updated"
     redirect_to '/resources'
