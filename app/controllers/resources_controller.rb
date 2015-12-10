@@ -1,5 +1,7 @@
 class ResourcesController < ApplicationController
 
+  require 'socket'
+
   before_action :auth_admin, except: [:index, :show, :share, :share_form]
 
   def home
@@ -8,18 +10,18 @@ class ResourcesController < ApplicationController
 
 
   def index
-
-
+    @current_location = Geocoder.search(Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address))
+    
     if params[:type]
       if params[:type] == "food"
-        @resources = Resource.where("food = ?", "true").order(:name)
+        @resources = Resource.where("food = ? AND status = ?", "true", "verified").order(:name)
       elsif params[:type] == "health"
-        @resources = Resource.where("health = ?", "true").order(:name)
+        @resources = Resource.where("health = ? AND status = ?", "true", "verified").order(:name)
       elsif params[:type] == "shelter"
-        @resources = Resource.where("shelter = ?", "true").order(:name)
+        @resources = Resource.where("shelter = ? AND status = ?", "true", "verified").order(:name)
       end
     else
-      @resources = Resource.order(:name)
+      @resources = Resource.where(status: "verified").order(:name)
     end
   end
 
@@ -32,12 +34,12 @@ class ResourcesController < ApplicationController
       health: params[:health],
       shelter: params[:shelter],
       name: params[:name],
-      address: params[:address],
+      address: "#{params[:street]}, #{params[:city]}, #{params[:zip_code]}",
       city: params[:city],
       zip_code: params[:zip_code],
       phone: params[:phone],
       description: params[:description],
-      full_street_address: params[:full_street_address]
+      street: params[:street]
       )
     flash[:success] = "Resource Successfully Created"
     redirect_to '/resources'
@@ -58,12 +60,12 @@ class ResourcesController < ApplicationController
       health: params[:health],
       shelter: params[:shelter],
       name: params[:name],
-      address: params[:address],
+      address: "#{params[:street]}, #{params[:city]}, #{params[:zip_code]}",
       city: params[:city],
       zip_code: params[:zip_code],
       phone: params[:phone],
       description: params[:description],
-      full_street_address: params[:full_street_address]
+      street: params[:street]
       )
     flash[:info] = "Resource Successfully Updated"
     redirect_to '/resources'
@@ -101,10 +103,3 @@ class ResourcesController < ApplicationController
 end
 
 
-private
-
-def auth_admin
-  unless current_user.roles.map {|role| true if role.name == "admin"}.include? true
-    redirect_to "/resources"
-  end
-end

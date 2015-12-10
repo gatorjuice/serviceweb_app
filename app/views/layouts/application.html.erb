@@ -14,11 +14,11 @@
     <div class="page-header">
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-        <% if current_user %>
+          <% if current_user %>
           <%= link_to "Sign Out", "/users/sign_out",  method: :delete, class: 'btn btn-primary' %>
-        <% else %>
+          <% else %>
           <%= link_to "Sign In", "/users/sign_in", class: 'btn btn-primary' %>
-        <% end %>
+          <% end %>
         </div>
       </div>
       <%= link_to "/resources" do %>
@@ -36,7 +36,8 @@
       <div class="col-xs-12 col-md-4">
         <div class="thumbnail">
           <div class="caption">
-            <h3><%= link_to "#{@food_resource.name}", "/resources/#{@food_resource.id}" %></h3>
+            <p>closest food resource:</p>
+            <h3><%= link_to "#{@food_resource.name}", "/resources/#{@food_resource.id}/share" %></h3>
             <p><%= @food_resource.description %></p>
           </div>
         </div>
@@ -44,7 +45,8 @@
       <div class="col-xs-12 col-md-4">
         <div class="thumbnail">
           <div class="caption">
-          <h3><%= @health_resource.name %></h3>
+            <p>closest health resource:</p>
+            <h3><%= link_to "#{@health_resource.name}", "/resources/#{@health_resource.id}/share" %></h3>
             <p><%= @health_resource.description %></p>
           </div>
         </div>
@@ -52,54 +54,148 @@
       <div class="col-xs-12 col-md-4">
         <div class="thumbnail">
           <div class="caption">
-           <h3><%= @shelter_resource.name %></h3>
-           <p><%= @shelter_resource.description %></p>
-         </div>
-       </div>
-     </div>
-   </div>
-   <%= yield %>
-
-   <div class="panel panel-default">
-    <div class="panel-heading">
-      <%= link_to 'Add Resource', '/resources/new', class: "btn btn-warning" %>
-      <h4>or select icon to search existing resources near you.</h4>
-    </div>
-    <div class="panel-body">
-      <div class="row">
-        <div class="col-xs-12 col-sm-4 col-md-4">
-          <a href="/resources?type=food" class="thumbnail main-button">
-            <span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
-            <div class="caption">
-              <h3>Food</h3>
-            </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-          <a href="/resources?type=health" class="thumbnail main-button">
-            <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-            <div class="caption">
-              <h3>Health</h3>
-            </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-          <a href="/resources?type=shelter" class="thumbnail main-button">
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <div class="caption">
-              <h3>Shelter</h3>
-            </div>
-          </a>
+            <p>closest shelter resource:</p>
+            <h3><%= link_to "#{@shelter_resource.name}", "/resources/#{@shelter_resource.id}/share" %></h3>
+            <p><%= @shelter_resource.description %></p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="footer">
-    <div class="about">
-      <h3>About ServiceWeb</h3>
-      <p>ServiceWeb is inspired by actual social workers and an attemp to give everyday citezens access to resources tehy wouldn't otherwise know about. ServiceWeb is the collective memory of social work professionals and volunteers</p>
+
+
+
+  <section id="wrapper">
+    <meta name="viewport" content="width=620" />
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <article>
+      <p>Finding your location: <span id="status">checking...</span></p>
+    </article>
+    <script>
+      function success(position) {
+        var s = document.querySelector('#status');
+        
+        if (s.className == 'success') {
+    // not sure why we're hitting this twice in FF, I think it's to do with a cached result coming back    
+    return;
+  }
+  
+  s.innerHTML = "found you!";
+  s.className = 'success';
+  
+  var mapcanvas = document.createElement('div');
+  mapcanvas.id = 'mapcanvas';
+  mapcanvas.style.height = '400px';
+  mapcanvas.style.width = '560px';
+  
+  document.querySelector('article').appendChild(mapcanvas);
+  
+  var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  var myOptions = {
+    zoom: 15,
+    center: latlng,
+    mapTypeControl: false,
+    navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+  
+  var marker = new google.maps.Marker({
+    position: latlng, 
+    map: map, 
+    title:"You are here! (at least within a "+position.coords.accuracy+" meter radius)"
+  });
+}
+
+function error(msg) {
+  var s = document.querySelector('#status');
+  s.innerHTML = typeof msg == 'string' ? msg : "failed";
+  s.className = 'fail';
+  
+  // console.log(arguments);
+}
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(success, error);
+} else {
+  error('not supported');
+}
+
+</script><a id="html5badge" href="http://www.w3.org/html/logo/">
+</a>
+</section>
+
+
+    <%= yield %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= link_to 'Add Resource', '/resources/new', class: "btn btn-warning" %>
+        <h4>or select icon to search existing resources near you.</h4>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 col-md-4">
+            <a href="/resources?type=food" class="thumbnail main-button">
+              <span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
+              <div class="caption">
+                <h3>Food</h3>
+              </div>
+            </a>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4">
+            <a href="/resources?type=health" class="thumbnail main-button">
+              <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+              <div class="caption">
+                <h3>Health</h3>
+              </div>
+            </a>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4">
+            <a href="/resources?type=shelter" class="thumbnail main-button">
+              <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+              <div class="caption">
+                <h3>Shelter</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="about">
+        <h3>About ServiceWeb</h3>
+        <p>ServiceWeb is inspired by actual social workers and an attemp to give everyday citezens access to resources tehy wouldn't otherwise know about. ServiceWeb is the collective memory of social work professionals and volunteers</p>
+      </div>
     </div>
   </div>
-</div>
+
+
+<script src="js/prettify.packed.js"></script>
+<script>
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script>
+  try {
+    var pageTracker = _gat._getTracker("UA-1656750-18");
+    pageTracker._trackPageview();
+  } catch(err) {}</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

@@ -12,6 +12,19 @@ class ApplicationController < ActionController::Base
   end
 
 
+  private
+
+  def auth_admin
+    if user_signed_in? == false
+      redirect_to "/resources"
+    else
+      unless current_user.roles.map {|role| true if role.name == "admin"}.include? true
+        redirect_to "/resources"
+      end
+    end
+  end
+
+
   protected
 
   def configure_devise_permitted_parameters
