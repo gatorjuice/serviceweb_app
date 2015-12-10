@@ -14,7 +14,11 @@
     <div class="page-header">
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-          <button type='button' class='btn btn-primary'>Sign In</button>
+        <% if current_user %>
+          <%= link_to "Sign Out", "/users/sign_out",  method: :delete, class: 'btn btn-primary' %>
+        <% else %>
+          <%= link_to "Sign In", "/users/sign_in", class: 'btn btn-primary' %>
+        <% end %>
         </div>
       </div>
       <%= link_to "/resources" do %>

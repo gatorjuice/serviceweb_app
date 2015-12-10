@@ -1,5 +1,7 @@
 class ResourcesController < ApplicationController
 
+  before_action :auth_admin, except: [:index, :show, :share, :share_form]
+
   def home
 
   end
@@ -94,4 +96,13 @@ class ResourcesController < ApplicationController
       })
   end
 
+end
+
+
+private
+
+def auth_admin
+  unless current_user.roles.map {|role| true if role.name == "admin"}.include? true
+    redirect_to "/resources"
+  end
 end
