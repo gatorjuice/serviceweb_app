@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  get "/" => 'resources#index'
+  get "/" => 'resources#home'
   get "/home" => 'resources#home'
 
   get '/resources' => 'resources#index'

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_closest_resources
 
   def find_closest_resources
+    @unverified_resources_count = Resource.where("status = ?", "unverified").length
     @food_resource = Resource.find_by(food: true)
     @health_resource = Resource.find_by(health: true)
     @shelter_resource = Resource.find_by(shelter: true)

@@ -2,7 +2,7 @@ class ResourcesController < ApplicationController
 
   require 'socket'
 
-  before_action :auth_admin, except: [:index, :show, :share, :share_form]
+  # before_action :auth_admin, except: [:index, :show, :share, :share_form]
 
   def home
 
@@ -10,8 +10,9 @@ class ResourcesController < ApplicationController
 
 
   def index
+    @unverified_resources_count = Resource.where("status = ?", "unverified").count
     @current_location = Geocoder.search(Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address))
-    
+    @location = Geokit::Geocoders::IpGeocoder.geocode(@current_location[0].data["ip"].to_s)
     if params[:type]
       if params[:type] == "food"
         @resources = Resource.where("food = ? AND status = ?", "true", "verified").order(:name)
