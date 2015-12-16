@@ -1,38 +1,43 @@
 <div class="row">
-<div class="col-md-12">
-<table style="width:100%" class="table">
-  <tr>
-    <th>Resource Name</th>
-    <th></th>
-    <th>Services</th>
-    <th>Full Address</th>
-    <th>Address</th>
-    <th>City</th>
-    <th>Zip Code</th>
-    <th>Phone Number</th>
-  </tr>
-  <% @resources.each do |resource| %>
-  <tr>
-    <td>
-      <%= link_to "/resources/#{resource.id}" do %>
-      <%= resource.name %>
+  <div class="col-md-12">
+    <table style="width:100%" class="table">
+      <tr>
+        <th>Resource Name</th>
+        <th></th>
+        <th>Services</th>
+        <th>Full Address</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Zip Code</th>
+        <th>Phone Number</th>
+      </tr>
+      <% @resources.each do |resource| %>
+      <tr>
+        <td>
+          <%= link_to "/resources/#{resource.id}" do %>
+          <%= resource.name %>
+          <% end %>
+        </td>
+        <td>
+          <% if resource.status == "unverified" %>
+          <%= link_to "/resources/#{resource.id}" %>
+          verify
+          <% else %>
+          <%= link_to "/resources/#{resource.id}/edit" do %>
+          edit
+          <% end %>
+          <% end %>
+        </td>
+        <td><%= resource.display_resources %></td>
+        <td><%= resource.address %></td>
+        <td><%= resource.street %></td>
+        <td><%= resource.city %></td>
+        <td><%= resource.zip_code %></td>
+        <td><%= resource.phone %></td>
+      </tr>    
       <% end %>
-    </td>
-    <td>
-      <%= link_to "/resources/#{resource.id}/edit" do %>
-      edit
-      <% end %>
-    </td>
-    <td><%= resource.display_resources %></td>
-    <td><%= resource.address %></td>
-    <td><%= resource.street %></td>
-    <td><%= resource.city %></td>
-    <td><%= resource.zip_code %></td>
-    <td><%= resource.phone %></td>
-  </tr>    
-  <% end %>
-</table>
-<p><%= @location %></p>
-<p><%= @current_location[0].data["ip"] %></p>
-</div>
+    </table>
+    <p><%= @location %></p>
+    <p><%= @current_location[0].data["ip"] %></p>
+  </div>
 </div>

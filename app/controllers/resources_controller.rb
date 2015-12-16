@@ -13,20 +13,23 @@ class ResourcesController < ApplicationController
     @unverified_resources_count = Resource.where("status = ?", "unverified").count
     @current_location = Geocoder.search(Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address))
     @location = Geokit::Geocoders::IpGeocoder.geocode(@current_location[0].data["ip"].to_s)
-    if params[:type]
-      if params[:type] == "food"
-        @resources = Resource.where("food = ? AND status = ?", "true", "verified").order(:name)
-      elsif params[:type] == "health"
-        @resources = Resource.where("health = ? AND status = ?", "true", "verified").order(:name)
-      elsif params[:type] == "shelter"
-        @resources = Resource.where("shelter = ? AND status = ?", "true", "verified").order(:name)
-      end
+    if params[:type] == "food"
+      @resources = Resource.where("food = ? AND status = ?", "true", "verified").order(:name)
+    elsif params[:type] == "health"
+      @resources = Resource.where("health = ? AND status = ?", "true", "verified").order(:name)
+    elsif params[:type] == "shelter"
+      @resources = Resource.where("shelter = ? AND status = ?", "true", "verified").order(:name)
+    elsif params[:status] == "unverified"
+      @resources = Resource.where(status: "unverified").order(:name)
     else
       @resources = Resource.where(status: "verified").order(:name)
     end
   end
 
-  def new   
+  def new 
+    unless user_signed_in? 
+      redirect_to '/resources'  
+    end
   end
 
   def create
@@ -66,7 +69,8 @@ class ResourcesController < ApplicationController
       zip_code: params[:zip_code],
       phone: params[:phone],
       description: params[:description],
-      street: params[:street]
+      street: params[:street],
+      status: params[:action]
       )
     flash[:info] = "Resource Successfully Updated"
     redirect_to '/resources'
@@ -78,6 +82,8 @@ class ResourcesController < ApplicationController
     flash[:danger] = "Resource Successfully Deleted"
     redirect_to "/resources"
   end
+
+private
 
   def share_form
     @resource = Resource.find_by(id: params[:id])
