@@ -83,8 +83,6 @@ class ResourcesController < ApplicationController
     redirect_to "/resources"
   end
 
-private
-
   def share_form
     @resource = Resource.find_by(id: params[:id])
   end
