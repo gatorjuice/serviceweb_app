@@ -46,7 +46,7 @@ class ResourcesController < ApplicationController
       street: params[:street]
       )
     flash[:success] = "Resource Successfully Created"
-    redirect_to "/resources/#{@resource.id}"
+    redirect_to "/resources"
   end
 
   def show
@@ -59,18 +59,23 @@ class ResourcesController < ApplicationController
 
   def update
     @resource = Resource.find_by(id: params[:id])
+    if params[:status] == "verified"
+      status = "verified"
+    else
+      status = @resource.status
+    end
     @resource.update(
-      food: params[:food],
-      health: params[:health],
-      shelter: params[:shelter],
-      name: params[:name],
-      address: "#{params[:street]}, #{params[:city]}, #{params[:zip_code]}",
-      city: params[:city],
-      zip_code: params[:zip_code],
-      phone: params[:phone],
-      description: params[:description],
-      street: params[:street],
-      status: params[:action]
+      food: params[:food] || @resource.food,
+      health: params[:health] || @resource.health,
+      shelter: params[:shelter] || @resource.shelter,
+      name: params[:name] || @resource.name,
+      address: "#{params[:street] || @resource.street}, #{params[:city] || @resource.city}, #{params[:zip_code] || @resource.zip_code}",
+      city: params[:city] || @resource.city,
+      zip_code: params[:zip_code] || @resource.zip_code,
+      phone: params[:phone] || @resource.phone,
+      description: params[:description] || @resource.description,
+      street: params[:street] || @resource.street,
+      status: status
       )
     flash[:info] = "Resource Successfully Updated"
     redirect_to "/resources/#{@resource.id}"
@@ -80,7 +85,11 @@ class ResourcesController < ApplicationController
     @resource = Resource.find_by(id: params[:id])
     @resource.destroy
     flash[:danger] = "Resource Successfully Deleted"
-    redirect_to "/resources"
+    if params[:from_unverified_list]
+      redirect_to "/resources?status=unverified"
+    else
+      redirect_to "/resources"
+    end
   end
 
   def share_form

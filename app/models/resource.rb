@@ -1,5 +1,6 @@
 class Resource < ActiveRecord::Base
   has_many :images
+  has_many :comments
   belongs_to :user
 
   geocoded_by :address   # can also be an IP address

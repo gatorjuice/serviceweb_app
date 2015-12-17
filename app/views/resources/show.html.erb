@@ -6,9 +6,20 @@
     <p>Description: <%= @resource.description %></p>
     <%= link_to "Share Resource", "/resources/#{@resource.id}/share", class: "btn btn-success" %>
     <%= link_to "Edit Resource", "/resources/#{@resource.id}/edit", class: "btn btn-info"  %> 
+    <div class="comments-section">
+      <% if @resource.comments.any? %>
+        <% @resource.comments.each do |comment| %>
+          <div class="comment">
+            <h5><%= comment.user.first_name %> said on <%= comment.created_at %></h5>
+            <p><%= comment.body %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <p>if you see this it means no comments</p>
+      <% end %>
+    </div>
   </div>
-  <div class="col-md-6 resource-show-photo">
-    <iframe width="600" height="450" frameborder="0" style="border:0" src=<%= "https://www.google.com/maps/embed/v1/view?zoom=16&center=#{@resource.latitude}%2C#{@resource.longitude}&key=AIzaSyCaDyqEoZSL8i4UIsKx0W5ohD01dfJVbSg" %> allowfullscreen></iframe>
-
+  <div class="col-md-6">
+    <iframe width="100%" height="450" frameborder="0" style="border:0" src=<%= "https://www.google.com/maps/embed/v1/view?zoom=16&center=#{@resource.latitude}%2C#{@resource.longitude}&key=#{open('lib/assets/.google_api_key').read()}" %> allowfullscreen></iframe>
   </div>
 </div>
