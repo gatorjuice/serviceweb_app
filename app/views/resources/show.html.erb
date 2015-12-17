@@ -7,15 +7,26 @@
     <%= link_to "Share Resource", "/resources/#{@resource.id}/share", class: "btn btn-success" %>
     <%= link_to "Edit Resource", "/resources/#{@resource.id}/edit", class: "btn btn-info"  %> 
     <div class="comments-section">
-      <% if @resource.comments.any? %>
-        <% @resource.comments.each do |comment| %>
-          <div class="comment">
-            <h5><%= comment.user.first_name %> said on <%= comment.created_at %></h5>
-            <p><%= comment.body %></p>
+      <%= form_tag "/comments", class: "form-horizontal", method: :post do %>
+        <div class="col-xs-12">
+          <div class="form-group">
+            <%= text_area_tag :comment_input_body, nil, placeholder: "Add a comment", class: "form-control" %>
           </div>
-        <% end %>
-      <% else %>
-        <p>if you see this it means no comments</p>
+          <div class="form-group">
+            <%= submit_tag "Post Comment" %>
+          </div>
+          <%= hidden_field_tag :comment_user_id, current_user.id %>
+          <%= hidden_field_tag :comment_resource_id, @resource.id %>
+        </div>
+      <% end %>
+      <% if @resource.comments.any? %>
+      <h3>User Comments</h3>
+      <% @resource.comments.each do |comment| %>
+      <div class="comment">
+        <h5><%= comment.user.first_name %> said on <%= comment.created_at %></h5>
+        <p><%= comment.body %></p>
+      </div>
+      <% end %>
       <% end %>
     </div>
   </div>
