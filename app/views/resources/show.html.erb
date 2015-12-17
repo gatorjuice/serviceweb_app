@@ -8,6 +8,7 @@
     <%= link_to "Edit Resource", "/resources/#{@resource.id}/edit", class: "btn btn-info"  %> 
   </div>
   <div class="col-md-6 resource-show-photo">
-    <%= image_tag(@resource.images.first.url) if @resource.images.first %>
+    <iframe width="600" height="450" frameborder="0" style="border:0" src=<%= "https://www.google.com/maps/embed/v1/view?zoom=16&center=#{@resource.latitude}%2C#{@resource.longitude}&key=AIzaSyCaDyqEoZSL8i4UIsKx0W5ohD01dfJVbSg" %> allowfullscreen></iframe>
+
   </div>
 </div>

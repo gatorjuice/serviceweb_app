@@ -15,7 +15,6 @@
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
           <% if current_user %>
-
           <a href="/resources?status=unverified"><button class="btn btn-primary" type="button">Verify <span class="badge"><%= @unverified_resources_count %></span></button></a>
           <%= link_to "Sign Out", "/users/sign_out",  method: :delete, class: 'btn btn-primary' %>
           <% else %>
@@ -23,7 +22,7 @@
           <% end %>
         </div>
       </div>
-      <%= link_to "/" do %>
+      <%= link_to "/resources" do %>
       <h1>ServiceWeb</h1>
       <% end %>
       <h2><small>many resources. one mind.</small></h2>
@@ -34,14 +33,17 @@
       <strong><%= message %></strong>
     </div>
     <% end %>
-    
 
     <%= yield %>
 
     <div class="panel panel-default">
       <div class="panel-heading">
+        <% if current_user %>
         <%= link_to 'Add Resource', '/resources/new', class: "btn btn-warning" %>
         <h4>or select icon to search existing resources near you.</h4>
+        <% else %> 
+        <h4>Select icon to search existing resources near you.</h4>
+        <% end %>
       </div>
       <div class="panel-body">
         <div class="row">

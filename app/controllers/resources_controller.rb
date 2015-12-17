@@ -5,7 +5,7 @@ class ResourcesController < ApplicationController
   # before_action :auth_admin, except: [:index, :show, :share, :share_form]
 
   def home
-
+    @location = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=food&name=cruise&key=#{open('lib/assets/.google_api_key').read()}"
   end
 
 
@@ -46,7 +46,7 @@ class ResourcesController < ApplicationController
       street: params[:street]
       )
     flash[:success] = "Resource Successfully Created"
-    redirect_to '/resources'
+    redirect_to "/resources/#{@resource.id}"
   end
 
   def show
@@ -73,7 +73,7 @@ class ResourcesController < ApplicationController
       status: params[:action]
       )
     flash[:info] = "Resource Successfully Updated"
-    redirect_to '/resources'
+    redirect_to "/resources/#{@resource.id}"
   end
 
   def destroy

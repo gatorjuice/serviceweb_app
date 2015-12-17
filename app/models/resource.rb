@@ -26,5 +26,4 @@ class Resource < ActiveRecord::Base
     update_attribute(:status, "verified")
   end
 
-
 end

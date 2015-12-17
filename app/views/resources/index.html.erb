@@ -19,13 +19,10 @@
           <% end %>
         </td>
         <td>
-          <% if resource.status == "unverified" %>
-          <%= link_to "/resources/#{resource.id}" %>
-          verify
+          <% if resource.status != "verified" %>
+          <%= link_to "Verify", "/resources/#{resource.id}?action=verified", method: :patch %> | <%= link_to "Delete", "/resources/#{resource.id}", method: :delete %>
           <% else %>
-          <%= link_to "/resources/#{resource.id}/edit" do %>
-          edit
-          <% end %>
+          <%= link_to "Edit", "/resources/#{resource.id}/edit" %>
           <% end %>
         </td>
         <td><%= resource.display_resources %></td>
