@@ -20,7 +20,6 @@
         </div>
       <% end %>
       <% if @resource.comments.any? %>
-      <h3>User Comments</h3>
       <% @resource.comments.each do |comment| %>
       <div class="comment">
         <h5><%= comment.user.first_name %> said on <%= comment.created_at %></h5>

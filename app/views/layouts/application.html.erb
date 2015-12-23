@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  <%= csrf_meta_tags %> 
 </head>
 <body>
-  <div class="container-fluid">
+  <div class="container">
     <div class="page-header">
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
@@ -23,7 +23,7 @@
         </div>
       </div>
       <%= link_to "/resources" do %>
-      <h1>ServiceWeb</h1>
+      <h1 id="title">ServiceWeb</h1>
       <% end %>
       <h2><small>many resources. one mind.</small></h2>
     </div>
