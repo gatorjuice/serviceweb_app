@@ -27,4 +27,20 @@ class Resource < ActiveRecord::Base
     update_attribute(:status, "verified")
   end
 
+  def lat_and_long
+    "lat: #{latitude}, lng: #{longitude}"
+  end
+
+  def phone_with_dashes
+    if phone != ""
+      "(" + phone[0..2].to_s + ") " + phone[3..5].to_s + "-" + phone[6..9].to_s
+    else
+      nil
+    end
+  end
+
+  def shorter_address
+    address.slice(0..-16)
+  end
+
 end

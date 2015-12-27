@@ -1,3 +1,14 @@
-// Place all the styles related to the comments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.comment {
+
+  .glyphicon {
+    font-size: 1em;
+  }
+
+  h5 {
+    margin-top: 0;
+  }
+
+  .thumbs {
+    text-align: center;
+  }
+}

@@ -6,6 +6,9 @@ class ResourcesController < ApplicationController
 
   def home
     @location = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=food&name=cruise&key=#{open('lib/assets/.google_api_key').read()}"
+    @closest_food_location = "lat: #{Resource.first.latitude}, lng: #{Resource.first.longitude}"
+    @resources = Resource.all
+   
   end
 
 
@@ -20,7 +23,12 @@ class ResourcesController < ApplicationController
     elsif params[:type] == "shelter"
       @resources = Resource.where("shelter = ? AND status = ?", "true", "verified").order(:name)
     elsif params[:status] == "unverified"
-      @resources = Resource.where(status: "unverified").order(:name)
+      if @unverified_resources_count == 0
+        flash[:info] = "completed resource verification"
+        redirect_to "/resources"
+      else
+        @resources = Resource.where(status: "unverified").order(:name)
+      end
     else
       @resources = Resource.where(status: "verified").order(:name)
     end
@@ -43,7 +51,8 @@ class ResourcesController < ApplicationController
       zip_code: params[:zip_code],
       phone: params[:phone],
       description: params[:description],
-      street: params[:street]
+      street: params[:street],
+      user_id: current_user.id || nil
       )
     flash[:success] = "Resource Successfully Created"
     redirect_to "/resources"

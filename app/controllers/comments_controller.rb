@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+
   def create
     comment_body = params[:comment_input_body]
     resource_id = params[:comment_resource_id]
@@ -10,4 +11,11 @@ class CommentsController < ApplicationController
       )
     redirect_to "/resources/#{resource_id}"
   end
+
+  def destroy
+    resource = Resource.find_by(id: params[:resource])
+    comment = Comment.find_by(id: params[:id])
+    redirect_to "resources/#{resource.id}"
+  end
+
 end

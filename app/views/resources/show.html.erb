@@ -2,28 +2,43 @@
   <div class="col-md-6">
     <h2><%= @resource.name %></h2>
     <p>Address: <%= @resource.address %></p>
-    <p>Phone: <%= @resource.phone %></p>
+    <p>Phone: <%= @resource.phone_with_dashes %></p>
     <p>Description: <%= @resource.description %></p>
     <%= link_to "Share Resource", "/resources/#{@resource.id}/share", class: "btn btn-success" %>
     <%= link_to "Edit Resource", "/resources/#{@resource.id}/edit", class: "btn btn-info"  %> 
     <div class="comments-section">
       <%= form_tag "/comments", class: "form-horizontal", method: :post do %>
-        <div class="col-xs-12">
-          <div class="form-group">
-            <%= text_area_tag :comment_input_body, nil, placeholder: "Add a comment", class: "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= submit_tag "Post Comment" %>
-          </div>
-          <%= hidden_field_tag :comment_user_id, current_user.id %>
-          <%= hidden_field_tag :comment_resource_id, @resource.id %>
+      <div class="col-xs-12">
+        <div class="form-group">
+          <%= text_area_tag :comment_input_body, nil, placeholder: "Add a comment", class: "form-control" %>
         </div>
+        <div class="form-group">
+          <%= submit_tag "Post Comment" %>
+        </div>
+        <%= hidden_field_tag :comment_user_id, current_user.id if current_user %>
+        <%= hidden_field_tag :comment_resource_id, @resource.id if current_user %>
+      </div>
       <% end %>
       <% if @resource.comments.any? %>
       <% @resource.comments.each do |comment| %>
       <div class="comment">
-        <h5><%= comment.user.first_name %> said on <%= comment.created_at %></h5>
-        <p><%= comment.body %></p>
+        <div class="row">
+          <div class="col-xs-1 thumbs">
+            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+          </div>
+          <div class="col-xs-10">
+            <h5><%= comment.user.first_name %> said on <%= comment.created_at %></h5>
+            <p><%= comment.body %></p>
+          </div>
+          <% if current_user && current_user.admin %>
+          <div class="col-xs-1">
+          <%= link_to "/comments/#{comment.id}", resource: @resource.id, method: :delete do %>
+            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
       </div>
       <% end %>
       <% end %>
