@@ -1,7 +1,6 @@
 
 <div class="row">
   <div class="col-md-6">
-    
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Quick Share</h3>
@@ -45,10 +44,9 @@
             <td><%= @shelter_resource.phone_with_dashes %></td>
           </tr>    
         </table>
-        <%= link_to "Show More", "/resources" %>
+        <%= link_to "Show More", "/resources", class: "btn btn-info" %>
       </div>
     </div>
-
   </div>
   <div class="col-md-6" id="map-container">
     <div id="map"></div>
@@ -60,21 +58,6 @@
     map = new google.maps.Map(document.getElementById('map'), {
       center: {<%= @health_resource.lat_and_long %>},
       zoom: 10
-    });
-    var marker = new google.maps.Marker({
-      position: {<%= @food_resource.lat_and_long %>},
-      map: map,
-      title: '<%= "#{@food_resource.name}" %>',
-    });
-    var marker = new google.maps.Marker({
-      position: {<%= @health_resource.lat_and_long %>},
-      map: map,
-      title: '<%= "#{@health_resource.name}" %>',
-    });
-    var marker = new google.maps.Marker({
-      position: {<%= @shelter_resource.lat_and_long %>},
-      map: map,
-      title: '<%= "#{@shelter_resource.name}" %>',
     });
     <% @resources.each do |resource| %>
     var marker = new google.maps.Marker({

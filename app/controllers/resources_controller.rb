@@ -6,9 +6,7 @@ class ResourcesController < ApplicationController
 
   def home
     @location = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=food&name=cruise&key=#{open('lib/assets/.google_api_key').read()}"
-    @closest_food_location = "lat: #{Resource.first.latitude}, lng: #{Resource.first.longitude}"
-    @resources = Resource.all
-   
+    @resources = Resource.where(status: "verified") 
   end
 
 
