@@ -1,71 +1,117 @@
-
-<div class="row">
+<!-- <p id="demo"></p> -->
+<div class="row" id="map-row">
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Quick Share</h3>
       </div>
       <div class="panel-body">
-        <table style="width:100%" class="table">
-          <tr>
-            <th></th>
-            <th>Closest Resource</th>
-            <th>Full Address</th>
-            <th>Phone</th>
-          </tr>
-          <tr>
-            <td style="text-align:right">F:</td>
-            <td> 
-              <%= link_to "/resources/#{@food_resource.id}/share" do %>
-              <%= @food_resource.name %>
-              <% end %>
-            </td>
-            <td><%= @food_resource.shorter_address %></td>
-            <td><%= @food_resource.phone_with_dashes %></td>
-          </tr> 
-          <tr> 
-            <td style="text-align:right">H:</td>
-            <td>
-              <%= link_to "/resources/#{@health_resource.id}/share" do %>
-              <%= @health_resource.name %>
-              <% end %>
-            </td>
-            <td><%= @health_resource.shorter_address %></td>
-            <td><%= @health_resource.phone_with_dashes %></td>
-          </tr> 
-          <tr>
-            <td style="text-align:right">S:</td>
-            <td>
-              <%= link_to "/resources/#{@health_resource.id}/share" do %>
-              <%= @shelter_resource.name %>
-              <% end %>
-            </td>
-            <td><%= @shelter_resource.shorter_address %></td>
-            <td><%= @shelter_resource.phone_with_dashes %></td>
-          </tr>    
-        </table>
-        <%= link_to "Show More", "/resources", class: "btn btn-info" %>
+        <div class="col-md-6">
+          <%= form_tag "/resources/:id/share", method: :post do %>
+          <%= telephone_field_tag :send_to_number, nil, class: "special-input form-control", placeholder: "3125551234" %>
+        </div>
+        <div class="col-md-6 home-page-buttons">
+            <%= submit_tag "Share These", class: "btn btn-success" %>
+            <%= link_to "Show More", "/resources", class: "btn btn-info" %>
+          <% end %>
+        </div>
       </div>
+      <table style="width:100%" class="table">
+        <tr>
+          <th></th>
+          <th>Closest Resource</th>
+          <th>Full Address</th>
+          <th>Phone</th>
+        </tr>
+        <tr>
+          <td style="text-align:right">F:</td>
+          <td> 
+            <%= link_to "/resources/#{@food_resource.id}/share" do %>
+            <%= @food_resource.name %>
+            <% end %>
+          </td>
+          <td><%= @food_resource.shorter_address %></td>
+          <td><%= @food_resource.phone_with_dashes %></td>
+        </tr> 
+        <tr> 
+          <td style="text-align:right">H:</td>
+          <td>
+            <%= link_to "/resources/#{@health_resource.id}/share" do %>
+            <%= @health_resource.name %>
+            <% end %>
+          </td>
+          <td><%= @health_resource.shorter_address %></td>
+          <td><%= @health_resource.phone_with_dashes %></td>
+        </tr> 
+        <tr>
+          <td style="text-align:right">S:</td>
+          <td>
+            <%= link_to "/resources/#{@health_resource.id}/share" do %>
+            <%= @shelter_resource.name %>
+            <% end %>
+          </td>
+          <td><%= @shelter_resource.shorter_address %></td>
+          <td><%= @shelter_resource.phone_with_dashes %></td>
+        </tr>    
+      </table>
     </div>
   </div>
-  <div class="col-md-6" id="map-container">
+  <div class="col-md-6 well" id="map-container">
     <div id="map"></div>
   </div>
 </div>
+
 <script type="text/javascript" charset="utf-8">
+  var x = document.getElementById("demo");
   var map;
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {<%= @health_resource.lat_and_long %>},
-      zoom: 10
-    });
-    <% @resources.each do |resource| %>
-    var marker = new google.maps.Marker({
-      position: {<%= resource.lat_and_long %>},
-      map: map,
-      title: '<%= "#{resource.name}" %>',
-    });
-    <% end %>
+  var lat;
+  var lng;
+
+  function showPosition(position) {
+    console.log("hello from showPosition");
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+    console.log(lat, lng)
+    var location = "lat: " + position.coords.latitude + 
+    ", lng: " + position.coords.longitude;  
+    x.innerHTML = location; 
+  }
+
+  function getLocation() {
+    console.log("hello from get location");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+
+  console.log("lat is " + lat + " right before entering initmap");
+
+  if ( typeof lat === 'undefined' || lat === null ) { 
+    console.log("not defined"); 
+  } else {
+    function initMap() {
+      var latitude = lat;
+      var lxongitude = lng;
+      console.log("hello from initMap");
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 41.888835199999995, lng: -87.6355107},
+        zoom: 10
+      });
+      console.log(lat)
+      <% @resources.each do |resource| %>
+      var marker = new google.maps.Marker({
+        position: {<%= resource.lat_and_long %>},
+        map: map,
+        title: '<%= "#{resource.name}" %>',
+      });
+      <% end %>
+    }
   }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOyI1tL-V4QeNZSMgXuWDaoX7usnruTJ8&callback=initMap"></script>
+<script>
+  $(document).ready(getLocation());
+</script>

@@ -1,15 +1,18 @@
-html, body {
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
 #map-container {
-  height: 297px;
+  height: 312px;
   margin-bottom: 25px;
+  padding: 5px;
 }
 #map {
   height: 100%;
   width: 100%;
+}
+
+#map-row {
+  margin-right:  0px;
+  .home-page-buttons {
+    text-align: center;
+  }
 }
 
 .page-header {
@@ -76,6 +79,9 @@ html, body {
 
 .show-row {
   margin-bottom: 20px;
+  h2 {
+    margin-top: 0;
+  }
 }
 
 .main-button {
@@ -85,5 +91,12 @@ html, body {
 .main-button:hover {
   background-color: rgba(41, 133, 232, 0.3);
   transition: 1s;
+}
+
+.share-form {
+  margin-bottom: 10px;
+  h2 {
+    margin-top: 0;
+  }
 }
 
