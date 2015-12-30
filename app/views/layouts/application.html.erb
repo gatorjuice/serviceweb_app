@@ -10,10 +10,18 @@
   <%= csrf_meta_tags %> 
 </head>
 <body>
+  <div id="drawer-contents">
+    <div class="container">
+      <div class="btn-group">
+      <div class="btn btn-success">menu option #1</div>
+      </div>
+    </div>
+  </div>
   <div class="container">
+    <div id="drawer" onclick="toggleDrawer()"><span id="chevron" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
     <div class="page-header">
       <div class='btn-toolbar pull-right'>
-      <% if current_user %>
+        <% if current_user %>
         <a id="verify-link" class="pull-left" href="/resources?status=unverified">Verify <span class="badge"><%= @unverified_resources_count %></span></a>
         <% end %>
         <div class='btn-group'>
