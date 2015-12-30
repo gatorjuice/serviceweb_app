@@ -3,7 +3,7 @@
 var drawerOpen = false;
 
 function toggleDrawer() {
-  $('#drawer-contents').toggle(200, "linear", function() {
+  $('#drawer-contents').toggle(50, "linear", function() {
     drawerOpen = !drawerOpen;
     if (drawerOpen === false) {
       document.getElementById('chevron').className = 'glyphicon glyphicon-chevron-down';
@@ -11,6 +11,10 @@ function toggleDrawer() {
       document.getElementById('chevron').className = 'glyphicon glyphicon-chevron-up';
     }
   });
+}
+
+function showInfo() {
+  console.log('you are hovering over the mouse');
 }
 
 $(document).ready(function() {

@@ -1,4 +1,3 @@
-<!-- <p id="demo"></p> -->
 <div class="row" id="map-row">
   <div class="col-md-6">
     <div class="panel panel-default">
@@ -11,8 +10,8 @@
           <%= telephone_field_tag :send_to_number, nil, class: "special-input form-control", placeholder: "3125551234" %>
         </div>
         <div class="col-md-6 home-page-buttons">
-            <%= submit_tag "Share These", class: "btn btn-success" %>
-            <%= link_to "Show More", "/resources", class: "btn btn-info" %>
+          <%= submit_tag "Share These", class: "btn btn-success" %>
+          <%= link_to "Show More", "/resources", class: "btn btn-info" %>
           <% end %>
         </div>
       </div>
@@ -58,6 +57,7 @@
   </div>
   <div class="col-md-6 well" id="map-container">
     <div id="map"></div>
+    <p id="demo"></p>
   </div>
 </div>
 

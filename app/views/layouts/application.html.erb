@@ -12,85 +12,83 @@
 <body>
   <div id="drawer-contents">
     <div class="container">
-      <div class="btn-group">
-      <div class="btn btn-success">menu option #1</div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div id="drawer" onclick="toggleDrawer()"><span id="chevron" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
-    <div class="page-header">
-      <div class='btn-toolbar pull-right'>
-        <% if current_user %>
-        <a id="verify-link" class="pull-left" href="/resources?status=unverified">Verify <span class="badge"><%= @unverified_resources_count %></span></a>
-        <% end %>
-        <div class='btn-group'>
-          <% if current_user %>
-          <%= link_to "Sign Out", "/users/sign_out",  method: :delete, class: 'btn btn-primary' %>
-          <% else %>
-          <%= link_to "Sign In", "/users/sign_in", class: 'btn btn-primary' %>
-          <%= link_to "Create Account", "/users/sign_up", class: 'btn btn-primary' %>
-          <% end %>
-        </div>
-      </div>
-      <%= link_to "/" do %>
-      <h1 id="title">ServiceWeb</h1>
-      <% end %>
-      <h2><small>many resources. one mind.</small></h2>
-    </div>
-    <% flash.each do |type, message| %>
-    <div class="alert alert-<%= type %> alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong><%= message %></strong>
-    </div>
-    <% end %>
-
-    <%= yield %>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <% if current_user %>
-        <%= link_to 'Add Resource', '/resources/new', class: "btn btn-warning" %>
-        <h4>or select icon to search existing resources near you.</h4>
-        <% else %> 
-        <h4>Select icon to search existing resources near you.</h4>
-        <% end %>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-xs-12 col-sm-4 col-md-4">
-            <a href="/resources?type=food" class="thumbnail main-button">
-              <span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
-              <div class="caption">
-                <h3>Food</h3>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-4">
-            <a href="/resources?type=health" class="thumbnail main-button">
-              <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-              <div class="caption">
-                <h3>Health</h3>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-4">
-            <a href="/resources?type=shelter" class="thumbnail main-button">
-              <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-              <div class="caption">
-                <h3>Shelter</h3>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer">
       <div class="about">
         <h3>About ServiceWeb</h3>
         <p>ServiceWeb is a single web based application with two powerful purposes. First, to serve as a professional resource for social workers and community advocates, as a crowd sourced database of service providers they reach out to on a daily basis. Second, to help everyday citizens share professionally reviewed resources with people in need, while not simply handing over money and without sharing personal contact information. </p>
       </div>
     </div>
   </div>
+</div>
+<div class="container">
+<div id="drawer" onclick="toggleDrawer()"><span onmouseover="showInfo()" id="chevron" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+  <div class="page-header">
+    <div class='btn-toolbar pull-right'>
+      <% if current_user %>
+      <a id="verify-link" class="pull-left" href="/resources?status=unverified">Verify <span class="badge"><%= @unverified_resources_count %></span></a>
+      <% end %>
+      <div class='btn-group'>
+        <% if current_user %>
+        <%= link_to "Sign Out", "/users/sign_out",  method: :delete, class: 'btn btn-primary' %>
+        <% else %>
+        <%= link_to "Sign In", "/users/sign_in", class: 'btn btn-primary' %>
+        <%= link_to "Create Account", "/users/sign_up", class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to "/" do %>
+    <h1 id="title">ServiceWeb</h1>
+    <% end %>
+    <h2><small>many resources. one mind.</small></h2>
+  </div>
+  <% flash.each do |type, message| %>
+  <div class="alert alert-<%= type %> alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong><%= message %></strong>
+  </div>
+  <% end %>
+
+  <%= yield %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <% if current_user %>
+      <%= link_to 'Add Resource', '/resources/new', class: "btn btn-warning" %>
+      <h4>or select icon to search existing resources near you.</h4>
+      <% else %> 
+      <h4>Select icon to search existing resources near you.</h4>
+      <% end %>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4">
+          <a href="/resources?type=food" class="thumbnail main-button">
+            <span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
+            <div class="caption">
+              <h3>Food</h3>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4">
+          <a href="/resources?type=health" class="thumbnail main-button">
+            <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+            <div class="caption">
+              <h3>Health</h3>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4">
+          <a href="/resources?type=shelter" class="thumbnail main-button">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            <div class="caption">
+              <h3>Shelter</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+  </div>
+</div>
 </body>
 </html>
