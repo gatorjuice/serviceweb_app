@@ -60,58 +60,33 @@
     <p id="demo"></p>
   </div>
 </div>
-
 <script type="text/javascript" charset="utf-8">
-  var x = document.getElementById("demo");
-  var map;
-  var lat;
-  var lng;
-
-  function showPosition(position) {
-    console.log("hello from showPosition");
-    lat = position.coords.latitude;
-    lng = position.coords.longitude;
-    console.log(lat, lng)
-    var location = "lat: " + position.coords.latitude + 
-    ", lng: " + position.coords.longitude;  
-    x.innerHTML = location; 
-  }
-
-  function getLocation() {
-    console.log("hello from get location");
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else { 
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-  }
-
-
-  console.log("lat is " + lat + " right before entering initmap");
-
-  if ( typeof lat === 'undefined' || lat === null ) { 
-    console.log("not defined"); 
-  } else {
-    function initMap() {
-      var latitude = lat;
-      var lxongitude = lng;
-      console.log("hello from initMap");
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 41.888835199999995, lng: -87.6355107},
-        zoom: 10
-      });
-      console.log(lat)
-      <% @resources.each do |resource| %>
-      var marker = new google.maps.Marker({
-        position: {<%= resource.lat_and_long %>},
-        map: map,
-        title: '<%= "#{resource.name}" %>',
-      });
-      <% end %>
-    }
+  function initMap(lat, lng) {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: lat, lng: lng},
+      zoom: 12
+    });
+    var marker = new google.maps.Marker({
+      position: {lat, lng},
+      map: map,
+      title: 'You',
+      icon: "<%= image_url('foodicon.png') %>"
+    });
+    <% @resources.each do |resource| %>
+    <% if resource.food %>
+    <% icon_type = 'foodicon.png' %>
+    <% elsif resource.health %>
+    <% icon_type = 'healthicon.png' %>
+    <% elsif resource.shelter %>
+    <% icon_type = 'sheltericon.png' %>
+    <% end %>
+    var marker = new google.maps.Marker({
+      position: {<%= resource.lat_and_long %>},
+      map: map,
+      title: '<%= "#{resource.name}" %>',
+      icon: '<%= image_url(icon_type) %>'
+    });
+    <% end %>
   }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOyI1tL-V4QeNZSMgXuWDaoX7usnruTJ8&callback=initMap"></script>
-<script>
-  $(document).ready(getLocation());
-</script>

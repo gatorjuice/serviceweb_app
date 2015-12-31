@@ -8,6 +8,5 @@ class User < ActiveRecord::Base
   has_many :roles, through: :user_roles
   has_many :comments
 
-
   
 end

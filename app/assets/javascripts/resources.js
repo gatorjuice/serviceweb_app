@@ -1,6 +1,37 @@
 /* eslint-disable no-unused-vars */
-
 var drawerOpen = false;
+var map;
+var lat;
+var lng;
+
+
+function checkComments() {
+  console.log("hello");
+}
+
+function upVote() {
+  console.log("upvote");
+
+}
+
+function downVote() {
+  console.log("downvote");
+}
+
+function showPosition(position) {
+  lat = position.coords.latitude;
+  lng = position.coords.longitude;
+  var location = "lat: " + position.coords.latitude + ", lng: " + position.coords.longitude;
+  initMap(lat, lng);
+}
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
 
 function toggleDrawer() {
   $('#drawer-contents').toggle(50, "linear", function() {
@@ -13,10 +44,17 @@ function toggleDrawer() {
   });
 }
 
-function showInfo() {
-  console.log('you are hovering over the mouse');
-}
-
 $(document).ready(function() {
-  $('#drawer-contents').hide();
+  getLocation();
+  $('.js-drawer-chevron').on("click", function() {
+    toggleDrawer();
+  });
+
+  $('.js-thumbs-up').on("click", function() {
+    upVote();
+  });
+
+  $('.js-thumbs-down').on("click", function() {
+    downVote();
+  });
 });

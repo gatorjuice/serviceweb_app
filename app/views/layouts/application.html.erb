@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %> 
 </head>
 <body>
@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class="container">
-<div id="drawer" onclick="toggleDrawer()"><span onmouseover="showInfo()" id="chevron" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+<div id="drawer"><span id="chevron" class="js-drawer-chevron glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
   <div class="page-header">
     <div class='btn-toolbar pull-right'>
       <% if current_user %>
@@ -35,7 +35,7 @@
         <% end %>
       </div>
     </div>
-    <%= link_to "/" do %>
+    <%= link_to "/home" do %>
     <h1 id="title">ServiceWeb</h1>
     <% end %>
     <h2><small>many resources. one mind.</small></h2>
