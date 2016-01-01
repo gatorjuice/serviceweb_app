@@ -16,61 +16,64 @@
         </div>
       </div>
       <table style="width:100%" class="table">
-        <tr>
-          <th></th>
-          <th>Closest Resource</th>
-          <th>Full Address</th>
-          <th>Phone</th>
-        </tr>
-        <tr>
-          <td style="text-align:right">F:</td>
-          <td> 
-            <%= link_to "/resources/#{@food_resource.id}/share" do %>
-            <%= @food_resource.name %>
-            <% end %>
-          </td>
-          <td><%= @food_resource.shorter_address %></td>
-          <td><%= @food_resource.phone_with_dashes %></td>
-        </tr> 
-        <tr> 
-          <td style="text-align:right">H:</td>
-          <td>
-            <%= link_to "/resources/#{@health_resource.id}/share" do %>
-            <%= @health_resource.name %>
-            <% end %>
-          </td>
-          <td><%= @health_resource.shorter_address %></td>
-          <td><%= @health_resource.phone_with_dashes %></td>
-        </tr> 
-        <tr>
-          <td style="text-align:right">S:</td>
-          <td>
-            <%= link_to "/resources/#{@health_resource.id}/share" do %>
-            <%= @shelter_resource.name %>
-            <% end %>
-          </td>
-          <td><%= @shelter_resource.shorter_address %></td>
-          <td><%= @shelter_resource.phone_with_dashes %></td>
-        </tr>    
-      </table>
-    </div>
+      <col width="5%">
+       <col width="35%">
+       <col width="35%">
+       <col width="25%">
+       <tr>
+        <th></th>
+        <th>Closest Resource</th>
+        <th>Full Address</th>
+        <th>Phone</th>
+      </tr>
+      <tr>
+        <td style="text-align:right">F:</td>
+        <td> 
+          <%= link_to "/resources/#{@food_resource.id}/share" do %>
+          <%= @food_resource.name %>
+          <% end %>
+        </td>
+        <td><%= @food_resource.shorter_address %></td>
+        <td><%= @food_resource.phone_with_dashes %></td>
+      </tr> 
+      <tr> 
+        <td style="text-align:right">H:</td>
+        <td>
+          <%= link_to "/resources/#{@health_resource.id}/share" do %>
+          <%= @health_resource.name %>
+          <% end %>
+        </td>
+        <td><%= @health_resource.shorter_address %></td>
+        <td><%= @health_resource.phone_with_dashes %></td>
+      </tr> 
+      <tr>
+        <td style="text-align:right">S:</td>
+        <td>
+          <%= link_to "/resources/#{@health_resource.id}/share" do %>
+          <%= @shelter_resource.name %>
+          <% end %>
+        </td>
+        <td><%= @shelter_resource.shorter_address %></td>
+        <td><%= @shelter_resource.phone_with_dashes %></td>
+      </tr>    
+    </table>
   </div>
-  <div class="col-md-6 well" id="map-container">
-    <div id="map"></div>
-    <p id="demo"></p>
-  </div>
+</div>
+<div class="col-md-6 well" id="map-container">
+  <div id="map"></div>
+  <p id="demo"></p>
+</div>
 </div>
 <script type="text/javascript" charset="utf-8">
   function initMap(lat, lng) {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: lat, lng: lng},
-      zoom: 12
+      zoom: 13
     });
     var marker = new google.maps.Marker({
       position: {lat, lng},
       map: map,
-      title: 'You',
-      icon: "<%= image_url('foodicon.png') %>"
+      title: 'You'
     });
     <% @resources.each do |resource| %>
     <% if resource.food %>
