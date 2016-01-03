@@ -15,7 +15,8 @@ class CommentsController < ApplicationController
   def destroy
     resource = Resource.find_by(id: params[:resource])
     comment = Comment.find_by(id: params[:id])
-    redirect_to "resources/#{resource.id}"
+    # comment.destroy
+    redirect_to "/resources"
   end
 
 end

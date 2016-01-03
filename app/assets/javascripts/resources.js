@@ -1,22 +1,11 @@
 /* eslint-disable no-unused-vars */
+/* global initMap */
+/* global upVote */
+/* global downVote */
 var drawerOpen = false;
 var map;
 var lat;
 var lng;
-
-
-function checkComments() {
-  console.log("hello");
-}
-
-function upVote() {
-  console.log("upvote");
-
-}
-
-function downVote() {
-  console.log("downvote");
-}
 
 function showPosition(position) {
   lat = position.coords.latitude;

@@ -13,12 +13,17 @@
           <%= text_area_tag :comment_input_body, nil, placeholder: "Add a comment", class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= submit_tag "Post Comment" %>
+          <%= submit_tag "Post Comment", class: "btn btn-default" %>
         </div>
         <%= hidden_field_tag :comment_user_id, current_user.id if current_user %>
         <%= hidden_field_tag :comment_resource_id, @resource.id if current_user %>
       </div>
       <% end %>
+
+      <div ng-controller="comments">
+        {{ test }}
+      </div>
+
       <% if @resource.comments.any? %>
       <% @resource.comments.each do |comment| %>
       <div id="js-comment-<%= comment.id %>" class="comment">
@@ -28,27 +33,31 @@
             <p class="votes-total"><%= comment.total_rating %></p>
             <span class="js-thumbs-down glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
           </div>
-          <div class="col-xs-10">
+          <div class="col-xs-8">
             <h5><%= comment.user.first_name %> said on <%= comment.created_at.in_time_zone.strftime("%b %d, %Y") %></h5>
             <p><%= comment.body %></p>
           </div>
           <% if current_user && current_user.admin %>
-          <div class="col-xs-1">
-          <%= link_to "/comments/#{comment.id}", resource: @resource.id, method: :delete do %>
-            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+          <div class="col-xs-3">
+            <%= form_tag "/api/comments", method: :delete do %>
+            <%= hidden_field_tag :resource_id, @resource.id %>
+            <%= hidden_field_tag :comment_id, comment.id %>
+            <%= button_tag(type: "submit", class: "btn btn-default") do %>
+            Delete <i class="icon-repeat"></i>
+            <% end %>
             <% end %>
           </div>
           <% end %>
         </div>
-      </div>
+      </div> 
       <% end %>
       <% end %>
     </div>
   </div>
-  <div class="col-md-6 map-container">
+  <div class="col-md-6" class="map-container">
     <iframe width="100%" height="450" frameborder="0" style="border:0" src=<%= "https://www.google.com/maps/embed/v1/view?zoom=16&center=#{@resource.latitude}%2C#{@resource.longitude}&key=#{open('lib/assets/.google_api_key').read()}" %> allowfullscreen></iframe>
   </div>
 </div>
 <script>
   checkComments();
-</script>
+  </script>

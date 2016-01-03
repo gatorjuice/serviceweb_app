@@ -1,5 +1,11 @@
 function upVote() {
-  $('.js-thumbs-up').on("click", function() {
-    console.log("upvote");
-  });
+  console.log("upvote");
+}
+
+function downVote() {
+  console.log("downvote");
+}
+
+function checkComments() {
+  console.log("hello");
 }

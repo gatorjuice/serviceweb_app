@@ -10,4 +10,8 @@ class Comment < ActiveRecord::Base
     end
     total
   end
+
+  def upvote
+    
+  end
 end

@@ -19,6 +19,9 @@ Rails.application.routes.draw do
 
   namespace :api do 
     get '/comments' => 'comments_api#index'
+    delete '/comments' => 'comments_api#destroy'
   end
+
+  post '/comment_ratings/' => 'comment_ratings#create'
   
 end
