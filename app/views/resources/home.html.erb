@@ -87,8 +87,12 @@
       position: {<%= resource.lat_and_long %>},
       map: map,
       title: '<%= "#{resource.name}" %>',
-      icon: '<%= image_url(icon_type) %>'
+      icon: '<%= image_url(icon_type) %>',
+      url: '<%= "/resources/#{resource.id}" %>'
     });
+    google.maps.event.addListener(marker, 'click', function() {
+    window.location.href = this.url;
+});
     <% end %>
   }
 </script>
