@@ -1,12 +1,39 @@
+.pulse-button {
+-webkit-animation-name: pulse;
+-webkit-animation-duration: 3s;
+-webkit-animation-iteration-count: infinite;
+text-shadow: 0 0 3px rgba(255, 255, 255, .3);
+// border:1px solid #ff6b6b;
+}
+
+.button:hover {
+cursor:pointer;
+-webkit-animation-name: pulse;
+-webkit-animation-duration: .8s;
+-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulse {
+from { background-color: #ff1919;}
+50% { background-color: #890000; }
+to { background-color: #ff1919;}
+}
+
 #drawer {
   text-align: center;
   padding-top: 10px;
   .glyphicon {
     font-size: 20px;
     color: gray;
+    
+  }
+  span {
+    display: inline;
   }
 
 }
+
+
 
 #drawer-contents {
   background-color: #eeeeee;

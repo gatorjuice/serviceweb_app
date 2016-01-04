@@ -20,12 +20,14 @@
   </div>
 </div>
 <div class="container">
-<div id="drawer"><span id="chevron" class="js-drawer-chevron glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+  <div id="drawer">
+    <span id="chevron" class="js-drawer-chevron glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+    <% if current_user && @unverified_resources_count > 0 %>
+    <span class="badge pulse-button"><%= @unverified_resources_count %></span>
+    <% end %>
+  </div>
   <div class="page-header">
     <div class='btn-toolbar pull-right'>
-      <% if current_user %>
-      <a id="verify-link" class="pull-left" href="/resources?status=unverified">Verify <span class="badge"><%= @unverified_resources_count %></span></a>
-      <% end %>
       <div class='btn-group'>
         <% if current_user %>
         <%= link_to "Sign Out", "/users/sign_out",  method: :delete, class: 'btn btn-primary' %>
