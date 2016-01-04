@@ -28,7 +28,7 @@ to { background-color: #ff1919;}
     
   }
   span {
-    display: inline;
+    display: block;
   }
 
 }
@@ -127,10 +127,12 @@ to { background-color: #ff1919;}
     text-decoration: none;
   }
 }
+
 .thumbnail {
   text-align: center;
   padding: 20px;
   margin: 0;
+  margin-bottom: 10px;
 
 }
 

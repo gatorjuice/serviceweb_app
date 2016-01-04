@@ -5,13 +5,11 @@ class ResourcesController < ApplicationController
   # before_action :auth_admin, except: [:index, :show, :share, :share_form]
 
   def home
-    @location = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=food&name=cruise&key=#{open('lib/assets/.google_api_key').read()}"
     @resources = Resource.where(status: "verified") 
   end
 
 
   def index
-    @unverified_resources_count = Resource.where("status = ? AND user_id <> ?", "unverified", "#{current_user.id}").count
     @current_location = Geocoder.search(Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address))
     @location = Geokit::Geocoders::IpGeocoder.geocode(@current_location[0].data["ip"].to_s)
     if params[:type] == "food"

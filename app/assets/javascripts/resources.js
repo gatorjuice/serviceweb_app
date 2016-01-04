@@ -39,6 +39,10 @@ $(document).ready(function() {
     toggleDrawer();
   });
 
+  $('.pulse-button').on("click", function() {
+    toggleDrawer();
+  });
+
   $('.js-thumbs-up').on("click", function() {
     upVote();
   });
