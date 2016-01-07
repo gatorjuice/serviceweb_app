@@ -1,10 +1,7 @@
-class Api::CommentsApiController < ApplicationController
+class Api::V1::CommentsApiController < ApplicationController
 
   def index
     @comments = Comment.all
-    render json: {
-      comments: @comments
-    }
   end
 
   def show

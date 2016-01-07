@@ -2,7 +2,7 @@
 (function() {
   "use strict";
   angular.module("app").controller("resources", function($scope, $http) {
-    
+
     $scope.setup = function() {
       $http.get('/api/v1/resources.json').then(function(response) {
         $scope.resources = response.data;
@@ -33,9 +33,10 @@
       }
     };
 
-    $scope.findIt = function(searchString) {
-      console.log(searchString);
-      // $http.get('/api/v1/resources' + '?' + searchString);
+    $scope.javascriptSucks = function(inputSearchString) {
+      $http.get('/api/v1/resources.json?search=' + inputSearchString).then(function(response) {
+        $scope.searchResults = response.data;
+      });
     };
 
     window.$scope = $scope;

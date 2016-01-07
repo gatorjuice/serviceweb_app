@@ -1,10 +1,15 @@
 class Api::V1::ResourcesController < ApplicationController
 
   def unverified
-    
+
   end
   def index
-    @resources = Resource.all
+    if params[:search]
+      string = params[:search]
+      @resources = Resource.where("name LIKE ?", "%#{string}%")
+    else
+      @resources = Resource.all
+    end
   end
 
   def delete

@@ -20,8 +20,22 @@
       </div>
       <% end %>
 
-      <div ng-controller="comments">
-        {{ test }}
+      <div ng-controller="comments" ng-init="setup()">
+        <div class="comment">
+          <div class="row" ng-repeat="comment in comments">
+            <div class="col-xs-1 thumbs">
+              <span ng-click="upvote(comment)" class="js-thumbs-up glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+              <p ng-model="score" class="votes-total">{{ comment.score }}</p>
+              <span ng-click="downvote(comment)" class="js-thumbs-down glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+            </div>
+            <div class="col-xs-8">
+              <h5>{{ comment.user_first_name }} said on {{ comment.created_at | date:'medium' }}</h5>
+              <p>{{ comment.body }}</p>
+            </div>
+
+
+          </div>
+        </div>
       </div>
 
       <% if @resource.comments.any? %>
@@ -60,4 +74,4 @@
 </div>
 <script>
   checkComments();
-  </script>
+</script>
