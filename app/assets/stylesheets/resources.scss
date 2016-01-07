@@ -3,10 +3,10 @@
 -webkit-animation-duration: 3s;
 -webkit-animation-iteration-count: infinite;
 text-shadow: 0 0 3px rgba(255, 255, 255, .3);
-// border:1px solid #ff6b6b;
+border: 2px solid rgb(222, 224, 224);
 }
 
-.button:hover {
+.pulse-button:hover {
 cursor:pointer;
 -webkit-animation-name: pulse;
 -webkit-animation-duration: .8s;
@@ -35,6 +35,19 @@ to { background-color: #ff1919;}
 
 
 
+div.nowrap-slider {
+    overflow-x: auto;
+    white-space: nowrap;
+
+}
+div.nowrap-slider [class*="col"], /* TWBS v3 */
+div.nowrap-slider [class*="span"] {  /* TWBS v2 */
+    display: inline-block;
+    float: none; /* Very important */
+}
+
+
+
 #drawer-contents {
   background-color: #eeeeee;
   height: auto;
@@ -44,8 +57,13 @@ to { background-color: #ff1919;}
   inset  0 -8px 8px -8px #000000;
   box-shadow:        inset  0  0 8px -8px #000000, 
   inset  0 -8px 8px -8px #000000;
-
   display: none;
+  padding: 10px 0 10px 0;
+  .unverified-thumb {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0;
+  }
 }
 
 #chevron:hover {
@@ -132,8 +150,6 @@ to { background-color: #ff1919;}
   text-align: center;
   padding: 20px;
   margin: 0;
-  margin-bottom: 10px;
-
 }
 
 .glyphicon {
@@ -164,3 +180,16 @@ to { background-color: #ff1919;}
   }
 }
 
+.ng-enter, .ng-move{
+  -webkit-animation: fadeIn 1s;
+  -moz-animation: fadeIn 1s;
+  -o-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+.ng-leave{
+  -webkit-animation: fadeOut 1s;
+  -moz-animation: fadeOut 1s;
+  -o-animation: fadeOut 1s;
+  animation: fadeOut 1s;
+}

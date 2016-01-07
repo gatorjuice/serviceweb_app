@@ -12,9 +12,9 @@ class ApplicationController < ActionController::Base
     else
       @unverified_resources_count = 0
     end
-    @food_resource = Resource.find_by(food: true)
-    @health_resource = Resource.find_by(health: true)
-    @shelter_resource = Resource.find_by(shelter: true)
+    @food_resource = Resource.find_by(food: true, status: "verified")
+    @health_resource = Resource.find_by(health: true, status: "verified")
+    @shelter_resource = Resource.find_by(shelter: true, status: "verified")
     @unverified_resources_count == 1 ? @count_english = "resource needs" : @count_english = "resources need"
   end
 

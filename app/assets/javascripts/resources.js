@@ -25,11 +25,11 @@ function getLocation() {
 function toggleDrawer() {
   $('#drawer-contents').toggle(50, "linear", function() {
     drawerOpen = !drawerOpen;
-    if (drawerOpen === false) {
-      document.getElementById('chevron').className = 'glyphicon glyphicon-chevron-down';
-    } else {
-      document.getElementById('chevron').className = 'glyphicon glyphicon-chevron-up';
-    }
+    // if (drawerOpen === false) {
+    //   document.getElementById('chevron').className = 'glyphicon glyphicon-chevron-down';
+    // } else {
+    //   document.getElementById('chevron').className = 'glyphicon glyphicon-chevron-up';
+    // }
   });
 }
 

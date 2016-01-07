@@ -20,6 +20,12 @@ Rails.application.routes.draw do
   namespace :api do 
     get '/comments' => 'comments_api#index'
     delete '/comments' => 'comments_api#destroy'
+
+    namespace :v1 do
+      get '/resources' => 'resources#index'
+      patch '/resources/:id' => 'resources#update'
+      delete '/resources/:id' => 'resources#delete'
+    end
   end
 
   post '/comment_ratings/' => 'comment_ratings#create'
