@@ -6,72 +6,34 @@
     <p>Description: <%= @resource.description %></p>
     <%= link_to "Share Resource", "/resources/#{@resource.id}/share", class: "btn btn-success" %>
     <%= link_to "Edit Resource", "/resources/#{@resource.id}/edit", class: "btn btn-info"  %> 
-    <div class="comments-section">
-      <%= form_tag "/comments", class: "form-horizontal", method: :post do %>
+
+    <div class="comments-section" ng-controller="comments" ng-init="setup()">
       <div class="col-xs-12 comments-section">
         <div class="form-group">
+        <textarea ng-model="newCommentBody" type="text" class="form-control" placeholder="comments should be constructive and thoughtful"></textarea>
           <%= text_area_tag :comment_input_body, nil, placeholder: "Add a comment", class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= submit_tag "Post Comment", class: "btn btn-default" %>
-        </div>
-        <%= hidden_field_tag :comment_user_id, current_user.id if current_user %>
-        <%= hidden_field_tag :comment_resource_id, @resource.id if current_user %>
-      </div>
-      <% end %>
-
-      <div ng-controller="comments" ng-init="setup()">
-        <div class="comment">
-          <div class="row" ng-repeat="comment in comments | filter:{ resource_id: <%= @resource.id %> }">
-            <div class="col-xs-1 thumbs">
-              <span ng-click="upvote(comment)" class="js-thumbs-up glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-              <p ng-model="score" class="votes-total">{{ comment.score }}</p>
-              <span ng-click="downvote(comment)" class="js-thumbs-down glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-            </div>
-            <div class="col-xs-8">
-              <h5>{{ comment.user_first_name }} said on {{ comment.created_at | date:'medium' }}</h5>
-              <p>{{ comment.body }}</p>
-            </div>
-
-
-          </div>
+          <button ng-click="submitComment(newCommentBody, <%= @resource.id %>, <%= current_user.id if current_user %>)" class="btn btn-default">Post Comment</button>
         </div>
       </div>
 
-      <% if @resource.comments.any? %>
-      <% @resource.comments.each do |comment| %>
-      <div id="js-comment-<%= comment.id %>" class="comment">
-        <div class="row">
+      <div class="comment">
+        <div class="row" ng-repeat="comment in comments | filter:{ resource_id: <%= @resource.id %> }">
           <div class="col-xs-1 thumbs">
-            <span class="js-thumbs-up glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-            <p class="votes-total"><%= comment.total_rating %></p>
-            <span class="js-thumbs-down glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+            <span ng-click="upvote(comment)" class="js-thumbs-up glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+            <p ng-model="score" class="votes-total">{{ comment.score }}</p>
+            <span ng-click="downvote(comment)" class="js-thumbs-down glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
           </div>
           <div class="col-xs-8">
-            <h5><%= comment.user.first_name %> said on <%= comment.created_at.in_time_zone.strftime("%b %d, %Y") %></h5>
-            <p><%= comment.body %></p>
+            <h5>{{ comment.user_first_name }} said on {{ comment.created_at | date:'medium' }}</h5>
+            <p>{{ comment.body }}</p>
           </div>
-          <% if current_user && current_user.admin %>
-          <div class="col-xs-3">
-            <%= form_tag "/api/comments", method: :delete do %>
-            <%= hidden_field_tag :resource_id, @resource.id %>
-            <%= hidden_field_tag :comment_id, comment.id %>
-            <%= button_tag(type: "submit", class: "btn btn-default") do %>
-            Delete <i class="icon-repeat"></i>
-            <% end %>
-            <% end %>
-          </div>
-          <% end %>
         </div>
-      </div> 
-      <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
   <div class="col-md-6" class="map-container">
     <iframe width="100%" height="450" frameborder="0" style="border:0" src=<%= "https://www.google.com/maps/embed/v1/view?zoom=16&center=#{@resource.latitude}%2C#{@resource.longitude}&key=#{open('lib/assets/.google_api_key').read()}" %> allowfullscreen></iframe>
   </div>
 </div>
-<script>
-  checkComments();
-</script>

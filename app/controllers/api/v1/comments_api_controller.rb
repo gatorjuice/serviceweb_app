@@ -10,20 +10,22 @@ class Api::V1::CommentsApiController < ApplicationController
   end
 
   def create
-    comment_body = params[:comment_input_body]
-    resource_id = params[:comment_resource_id]
-    user_id = params[:comment_user_id]
-    Comment.create(
+    comment_body = params[:inputCommentBody]
+    resource_id = params[:inputResourceId]
+    user_id = params[:inputUserId]
+    @comment = Comment.new(
       user_id: user_id,
       resource_id: resource_id,
       body: comment_body
       )
-    redirect_to "/resources/#{resource_id}"
+    @comment.save
   end
 
   def destroy
-    comment = Comment.find(params[:comment_id])
-    comment.destroy
-    redirect_to "/resources/#{params[:resource_id]}"
+    resource = Resource.find_by(id: params[:resource])
+    comment = Comment.find_by(id: params[:id])
+    # comment.destroy
+    redirect_to "/resources"
   end
+
 end
