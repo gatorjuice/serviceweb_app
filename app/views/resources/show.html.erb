@@ -22,7 +22,7 @@
 
       <div ng-controller="comments" ng-init="setup()">
         <div class="comment">
-          <div class="row" ng-repeat="comment in comments">
+          <div class="row" ng-repeat="comment in comments | filter:{ resource_id: <%= @resource.id %> }">
             <div class="col-xs-1 thumbs">
               <span ng-click="upvote(comment)" class="js-thumbs-up glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
               <p ng-model="score" class="votes-total">{{ comment.score }}</p>

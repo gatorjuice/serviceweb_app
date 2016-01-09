@@ -10,7 +10,7 @@
             <input ng-model="searchString" class="form-control" placeholder="Search for Resources...">
           </div>
           <div class="col-xs-3">
-            <button ng-click="javascriptSucks(searchString)" class="btn btn-success">find resources</button>
+            <button ng-click="searchFor(searchString)" class="btn btn-success form-control">find</button>
           </div>
         </div>
         <div class="row" ng-repeat="result in searchResults">

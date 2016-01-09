@@ -6,8 +6,13 @@
     $scope.setup = function() {
       $http.get('/api/v1/resources.json').then(function(response) {
         $scope.resources = response.data;
-        $scope.unverifiedCount = 0;
       });
+      $scope.unverifiedCount = 0;
+      
+      // for (var i = 0; i < $scope.resources.length; ++i) {
+      //   if ($scope.resources[i].status === "unverified") {
+      //     $scope.unverifiedCount++;
+      //   }
     };
 
     $scope.deleteResource = function(inputResource) {
@@ -26,14 +31,13 @@
       $scope.resources.splice(resourceIndex, 1);
     };
 
-    $scope.isVerified = function(inputResource) {
+    $scope.isUnverified = function(inputResource) {
       if (inputResource.status === "unverified") {
-        $scope.unverifiedCount = 1;
         return true;
       }
     };
 
-    $scope.javascriptSucks = function(inputSearchString) {
+    $scope.searchFor = function(inputSearchString) {
       $http.get('/api/v1/resources.json?search=' + inputSearchString).then(function(response) {
         $scope.searchResults = response.data;
       });
