@@ -21,7 +21,7 @@
           <% if resource.status != "verified" %>
           <%= link_to "Verify", "/resources/#{resource.id}?status=verified", method: :patch %> | <%= link_to "Delete", "/resources/#{resource.id}?from_unverified_list=true", method: :delete %>
           <% else %>
-          <% if resource.user_id == current_user.id %>
+          <% if user_signed_in? %>
           <%= link_to "Edit", "/resources/#{resource.id}/edit" %>
           <% end %>
           <% end %>

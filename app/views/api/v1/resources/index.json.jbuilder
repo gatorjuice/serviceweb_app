@@ -9,4 +9,6 @@ json.array!(@resources) do |resource|
   json.description resource.description
   json.comments resource.comments
   json.user resource.user
+  json.latitude resource.latitude
+  json.longitude  resource.longitude
 end

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_filter :find_closest_resources
+  skip_before_filter  :verify_authenticity_token
 
   def find_closest_resources
     if current_user

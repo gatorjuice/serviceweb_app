@@ -6,13 +6,13 @@
     $scope.setup = function() {
       $http.get('/api/v1/resources.json').then(function(response) {
         $scope.resources = response.data;
+
+        for (var i = 0; i < $scope.resources.length; ++i) {
+          $scope.resources[i].latitudeDifference = $scope.resources[i].latitude - lat;
+          $scope.unverifiedCount++;
+        }
+        
       });
-      $scope.unverifiedCount = 0;
-      
-      // for (var i = 0; i < $scope.resources.length; ++i) {
-      //   if ($scope.resources[i].status === "unverified") {
-      //     $scope.unverifiedCount++;
-      //   }
     };
 
     $scope.deleteResource = function(inputResource) {
@@ -40,6 +40,8 @@
     $scope.searchFor = function(inputSearchString) {
       $http.get('/api/v1/resources.json?search=' + inputSearchString).then(function(response) {
         $scope.searchResults = response.data;
+        console.log(lat, lng);
+
       });
     };
 

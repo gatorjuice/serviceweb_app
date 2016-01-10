@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
       get '/comments' => 'comments_api#index'
       post '/comments' => 'comments_api#create'
-      delete '/comments' => 'comments_api#destroy'
+      delete '/comments/:id' => 'comments_api#destroy'
 
     end
   end

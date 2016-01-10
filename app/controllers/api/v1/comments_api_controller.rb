@@ -1,7 +1,8 @@
 class Api::V1::CommentsApiController < ApplicationController
 
   def index
-    @comments = Comment.all
+    comments = Comment.all
+    @comments = comments.sort_by { |comment| comment.total_rating }.reverse
   end
 
   def show
@@ -18,14 +19,16 @@ class Api::V1::CommentsApiController < ApplicationController
       resource_id: resource_id,
       body: comment_body
       )
-    @comment.save
+    if @comment.save
+    else
+      render json: { error: "your cannot submit a blank comment."}
+    end
   end
 
   def destroy
-    resource = Resource.find_by(id: params[:resource])
     comment = Comment.find_by(id: params[:id])
-    # comment.destroy
-    redirect_to "/resources"
+    comment.destroy
+    render nothing: true
   end
 
 end

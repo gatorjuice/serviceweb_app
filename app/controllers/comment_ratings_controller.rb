@@ -1,9 +1,11 @@
 class CommentRatingsController < ApplicationController
 
   def create
-    comment_id = params[:comment_id]
-    rating = params[:rating_value]
-    @previous_comment_rating = CommentRating.where(comment_id: comment_id, user_id: 1)
+    p current_user.id
+    p "=================================="
+    comment_id = params[:commentId]
+    rating = params[:ratingValue]
+    @previous_comment_rating = CommentRating.where(comment_id: comment_id, user_id: current_user.id)
     
     @previous_comment_rating.each do |rating|
       item_to_delete = CommentRating.find(rating.id)
@@ -13,9 +15,8 @@ class CommentRatingsController < ApplicationController
     CommentRating.create(
       comment_id: comment_id,
       rating: rating,
-      user_id: 1 #this needs to be changed back to current_user.id
+      user_id: current_user.id #this needs to be changed back to current_user.id
     )
-
+    render json: { value: "hjelllo" }
   end
-
 end
