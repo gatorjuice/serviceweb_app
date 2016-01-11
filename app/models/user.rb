@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :roles, through: :user_roles
   has_many :comments
   has_many :comment_ratings
+  has_many :resource_ratings
 
   
 end

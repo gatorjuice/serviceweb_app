@@ -1,7 +1,9 @@
 class Resource < ActiveRecord::Base
+  
   has_many :images
   has_many :comments
   belongs_to :user
+  has_many :resource_ratings
 
   geocoded_by :address   # can also be an IP address
   after_validation :geocode, if: ->(resource){ resource.address.present? and resource.address_changed? }
@@ -41,6 +43,14 @@ class Resource < ActiveRecord::Base
 
   def shorter_address
     address.slice(0..-16)
+  end
+
+  def score
+    total = 0
+    resource_ratings.each do |resource_rating|
+      total += resource_rating.rating
+    end
+    total
   end
 
 end

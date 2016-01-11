@@ -21,8 +21,9 @@
                 <p>{{ resource.street }}</p>
                 <p>{{ resource.city }}, {{ resource.zip_code }}</p>
                 <p>submitted by: {{ resource.user.first_name }} {{ resource.user.last_name }}</p>
-                <button ng-click="deleteResource(resource)" class="btn btn-danger">delete</button>
-                <button ng-click="verifyResource(resource)" class="btn btn-success">verify</button>
+                <button ng-click="verifyResource(resource)" class="btn btn-success">confirm</button>
+                <button ng-click="unsureResource(resource)" class="btn btn-info">unsure</button>
+                <button ng-click="deleteResource(resource)" class="btn btn-danger">deny</button>
               </div>
             </div>
           </div>
@@ -44,7 +45,6 @@
         <div class="row">
           <div class="col-md-9">
             <%= link_to "/home" do %>
-            <!-- <h1 id="title">ServiceWeb</h1> -->
             <div class="logo-main">
               <%= image_tag('serviceweblogo.png') %>
             </div>
@@ -75,12 +75,34 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <% if current_user %>
-          <%= link_to 'Add Resource', '/resources/new', class: "btn btn-warning" %>
-          <h4>or select icon to search existing resources near you.</h4>
-          <% else %> 
-          <h4>Select icon to search existing resources near you.</h4>
-          <% end %>
+          <div class="row">
+            <div class="col-md-6">
+              <% if current_user %>
+              <%= link_to 'Add Resource', '/resources/new', class: "btn btn-warning" %>
+              <h4>or select icon to search existing resources near you.</h4>
+              <% else %> 
+              <h4>Select icon to search existing resources near you.</h4>
+              <% end %>
+            </div>
+            <div class="col-md-6 test">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-xs-12">
+                  <input ng-model="searchString" ng-keydown="searchFor(searchString)" class="form-control" placeholder="Search for Resources...">
+                  </div>
+                </div>
+                <div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <ul id="search-results" class="search-result row">
+                        <li ng-click="searchSelect(result)" ng-repeat="result in searchResults | limitTo:resultsShown" class="search-result">{{ result.name }}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="panel-body">
           <div class="row">

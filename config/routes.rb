@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       post '/comments' => 'comments_api#create'
       delete '/comments/:id' => 'comments_api#destroy'
 
+      post '/resource_ratings' => 'resource_ratings#create'
+
     end
   end
 

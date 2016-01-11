@@ -1,22 +1,22 @@
 .pulse-button {
--webkit-animation-name: pulse;
--webkit-animation-duration: 3s;
--webkit-animation-iteration-count: infinite;
-text-shadow: 0 0 3px rgba(255, 255, 255, .3);
-border: 2px solid rgb(222, 224, 224);
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+  text-shadow: 0 0 3px rgba(255, 255, 255, .3);
+  border: 2px solid rgb(222, 224, 224);
 }
 
 .pulse-button:hover {
-cursor:pointer;
--webkit-animation-name: pulse;
--webkit-animation-duration: .8s;
--webkit-animation-iteration-count: infinite;
+  cursor:pointer;
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: .8s;
+  -webkit-animation-iteration-count: infinite;
 }
 
 @-webkit-keyframes pulse {
-from { background-color: #ff1919;}
-50% { background-color: #890000; }
-to { background-color: #ff1919;}
+  from { background-color: #ff1919;}
+  50% { background-color: #890000; }
+  to { background-color: #ff1919;}
 }
 
 #drawer {
@@ -36,14 +36,14 @@ to { background-color: #ff1919;}
 
 
 div.nowrap-slider {
-    overflow-x: auto;
-    white-space: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
 
 }
 div.nowrap-slider [class*="col"], /* TWBS v3 */
 div.nowrap-slider [class*="span"] {  /* TWBS v2 */
-    display: inline-block;
-    float: none; /* Very important */
+  display: inline-block;
+  float: none; /* Very important */
 }
 
 
@@ -72,10 +72,10 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
 }
 
 #chevron {
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 #map-container {
@@ -192,4 +192,23 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
   -moz-animation: fadeOut 1s;
   -o-animation: fadeOut 1s;
   animation: fadeOut 1s;
+}
+
+#search-results { // ul tag
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  .search-result { // li tags
+    list-style: none;
+    background-color: white;
+    border: 1px solid #cccccc;
+    padding: 5px;
+  }
+  .search-result:hover{
+    background-color: rgba(41, 133, 232, 0.7);
+    transition: 0.5s;
+    cursor: pointer;
+  }
 }

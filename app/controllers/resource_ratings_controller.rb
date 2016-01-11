@@ -1,0 +1,2 @@
+class ResourceRatingsController < ApplicationController
+end

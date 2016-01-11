@@ -1,27 +1,6 @@
 <div class="row" id="map-row">
   <div class="col-md-7">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Search</h3>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-xs-9">
-            <input ng-model="searchString" class="form-control" placeholder="Search for Resources...">
-          </div>
-          <div class="col-xs-3">
-            <button ng-click="searchFor(searchString)" class="btn btn-success form-control">find</button>
-          </div>
-        </div>
-        <div class="row" ng-repeat="result in searchResults">
-          <div class="search-result">
-            <div class="col-xs-6">
-              <p>{{ result.name }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+   
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Quick Share</h3>

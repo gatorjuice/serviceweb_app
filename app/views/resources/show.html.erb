@@ -1,6 +1,9 @@
 <div class="row show-row container">
   <div class="col-md-6">
     <h2><%= @resource.name %></h2>
+    <% if @my_rating %>
+    <h5>your view is <%= @my_rating.my_rating_phrase %> </h5>
+    <% end %>
     <p>Address: <%= @resource.address %></p>
     <p>Phone: <%= @resource.phone_with_dashes %></p>
     <p>Description: <%= @resource.description %></p>
@@ -28,7 +31,7 @@
           </div>
           <div class="col-xs-2">
             <% if current_user.admin %>
-              <button ng-click="deleteComment(comment)">Delete</button>
+            <button ng-click="deleteComment(comment)">Delete</button>
             <% end %>
           </div>
         </div>
