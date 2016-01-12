@@ -40,4 +40,17 @@ class Api::V1::ResourcesController < ApplicationController
     flash[:info] = "Resource Successfully Updated"
   end
 
+  def find_closest_resources
+    food_distance_data_array = []
+    food_resources = Resource.where(food: true)
+    food_resources.each do |resource|
+      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [0, 0])
+      food_distance_data_array << {
+        resource: resource,
+        distance: distance
+       }
+    end
+    render json: food_distance_data_array
+  end
+
 end

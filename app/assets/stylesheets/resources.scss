@@ -25,28 +25,21 @@
   .glyphicon {
     font-size: 20px;
     color: gray;
-    
   }
   span {
     display: block;
   }
-
 }
-
-
 
 div.nowrap-slider {
   overflow-x: auto;
   white-space: nowrap;
-
 }
 div.nowrap-slider [class*="col"], /* TWBS v3 */
 div.nowrap-slider [class*="span"] {  /* TWBS v2 */
   display: inline-block;
   float: none; /* Very important */
 }
-
-
 
 #drawer-contents {
   background-color: #eeeeee;
@@ -63,12 +56,12 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
     margin-left: 10px;
     margin-right: 10px;
     padding: 0;
+    background-image: image-url('debut_light.png');
   }
 }
 
 #chevron:hover {
   color: #555555;
-
 }
 
 #chevron {
@@ -83,6 +76,7 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
   margin-bottom: 25px;
   padding: 5px;
 }
+
 #map {
   height: 100%;
   width: 100%;
@@ -96,44 +90,33 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
 }
 
 .page-header {
-
   h1 {
-
     margin-top: -40px;
     margin-bottom: 0;
-    ;
   }
-
   h2 {
-
     margin-top: 0;
     margin-bottom: 0;
-
   }
-
   a:hover {
     text-decoration: none;
   }
-
   #verify-link {
     margin-top: 8px
   }
-
 }
+
 .new-resource-form {
   text-align: right;
 }
 
-
 .btn-group {
-
   bottom: 15px;
   position: relative;
   top: 2px;
-
 }
-.panel {
 
+.panel {
   h3 {
     color: rgb(38, 81, 128);
     margin-bottom: 0;
@@ -199,7 +182,6 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
   z-index: 1;
   top: 0;
   left: 0;
-
   .search-result { // li tags
     list-style: none;
     background-color: white;

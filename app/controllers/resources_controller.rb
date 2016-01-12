@@ -111,6 +111,10 @@ class ResourcesController < ApplicationController
     address = params[:address]
     description = params[:description]
 
+    body = "Call #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com learn more."
+    
+    p body.length
+
     account_sid = open('lib/assets/.twilio_api_id').read()
     auth_token = open('lib/assets/.twilio_api_token').read()
 
@@ -118,7 +122,7 @@ class ResourcesController < ApplicationController
     @client.account.messages.create({
       :from => '+17089548869',
       :to => send_to_number,
-      :body => "Please call #{name}:\n#{phone}\nThey are located at:\n#{address}\n#{description}"    
+      :body => body    
       })
   end
 

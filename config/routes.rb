@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   get "/" => 'resources#home'
   get "/home" => 'resources#home'
+  get "/account" => 'accounts#show'
 
   get '/resources' => 'resources#index'
   get '/resources/new' => 'resources#new'
@@ -25,6 +26,8 @@ Rails.application.routes.draw do
       get '/resources' => 'resources#index'
       patch '/resources/:id' => 'resources#update'
       delete '/resources/:id' => 'resources#delete'
+
+      get '/closest_resources' => 'resources#find_closest_resources'
 
       get '/comments' => 'comments_api#index'
       post '/comments' => 'comments_api#create'

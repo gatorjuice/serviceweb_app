@@ -13,6 +13,9 @@
         }
 
       });
+      $http.get('/api/v1/closest_resources').then(function(response) {
+        $scope.closestFoodResource = response.data;
+      });
     };
 
     $scope.deleteResource = function(inputResource) {

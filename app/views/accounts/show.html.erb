@@ -1,0 +1,26 @@
+<h1><%= @current_user.first_name %>'s Account</h1>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3>My Resources</h3>
+    <ul>
+      <% @current_user_resources.each do |resource| %>
+      <li><%= link_to "#{resource.name}", "/resources/#{resource.id}" %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <h3>My Ratings</h3>
+    <ul>
+      <% @current_user_resource_ratings.each do |rating| %>
+      <li><%= rating.resource.name %> -- <%= rating.my_rating_phrase %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <h3>My Info</h3>
+    <h6>First Name: <%= @current_user.first_name %></h6>
+    <h6>Last Name: <%= @current_user.last_name %></h6>
+    <h6>Email: <%= @current_user.email %></h6>
+  </div>
+</div>

@@ -3,20 +3,28 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
-  before_filter :find_closest_resources
+  # before_filter :find_closest_resources
   skip_before_filter  :verify_authenticity_token
 
-  def find_closest_resources
+  def find_closest_resources(my_location)
     if current_user
       @unverified_resources_count = Resource.where("status = ? AND user_id <> ?", "unverified", "#{current_user.id}").count
       @unverified_resources = Resource.where("status = ? AND user_id <> ?", "unverified", "#{current_user.id}")
     else
       @unverified_resources_count = 0
     end
-    @food_resource = Resource.find_by(food: true, status: "verified")
-    @health_resource = Resource.find_by(health: true, status: "verified")
-    @shelter_resource = Resource.find_by(shelter: true, status: "verified")
+    @food_resources = Resource.where(food: true, status: "verified")
+    @health_resources = Resource.where(health: true, status: "verified")
+    @shelter_resources = Resource.where(shelter: true, status: "verified")
     @unverified_resources_count == 1 ? @count_english = "resource needs" : @count_english = "resources need"
+    
+
+    @food_resources.each do |resource|
+
+      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [40.748433,-73.985655])
+
+    end
+
   end
 
 
