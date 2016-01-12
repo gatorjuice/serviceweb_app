@@ -30,7 +30,7 @@
             <p>{{ comment.body }}</p>
           </div>
           <div class="col-xs-2">
-            <% if current_user.admin %>
+          <% if current_user && current_user.admin %>
             <button ng-click="deleteComment(comment)">Delete</button>
             <% end %>
           </div>

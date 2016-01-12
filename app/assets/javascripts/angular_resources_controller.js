@@ -49,14 +49,14 @@
     };
 
     $scope.searchFor = function(inputSearchString) {
-      $http.get('/api/v1/resources.json?search=' + inputSearchString).then(function(response) {
-        $scope.searchResults = response.data;
-        if ($scope.searchString.length === 0) {
-          $scope.resultsShown = 0;
-        } else {
+      if ($scope.searchString.length > 0) {
+        $http.get('/api/v1/resources.json?search=' + inputSearchString).then(function(response) {
+          $scope.searchResults = response.data;
           $scope.resultsShown = 5;
-        }
-      });
+        });
+      } else {
+        $scope.resultsShown = 0;
+      }
     };
 
     $scope.searchSelect = function(inputSearchedResource) {

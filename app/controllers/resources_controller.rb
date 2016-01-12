@@ -56,8 +56,9 @@ class ResourcesController < ApplicationController
 
   def show
     @resource = Resource.find_by(id: params[:id])
-    @my_rating = ResourceRating.find_by(resource_id: @resource.id, user_id: current_user.id)
-
+    if current_user
+      @my_rating = ResourceRating.find_by(resource_id: @resource.id, user_id: current_user.id)
+    end
   end
 
   def edit
