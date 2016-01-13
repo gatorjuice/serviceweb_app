@@ -43,7 +43,7 @@ test:
   password: Kqtrugs80
 
 production:
+  database: serviceweb_app-production
   adapter: postgresql
   encoding: unicode
-  database: serviceweb_app_production
   pool: 5
