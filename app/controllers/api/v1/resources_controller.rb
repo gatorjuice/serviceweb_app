@@ -25,9 +25,9 @@ class Api::V1::ResourcesController < ApplicationController
       status = @resource.status
     end
     @resource.update(
-      food: params[:food],
-      health: params[:health],
-      shelter: params[:shelter],
+      food: params[:food] || @resource.food,
+      health: params[:health] || @resource.health,
+      shelter: params[:shelter] || @resource.shelter,
       name: params[:name] || @resource.name,
       address: "#{params[:street] || @resource.street}, #{params[:city] || @resource.city}, #{params[:zip_code] || @resource.zip_code}",
       city: params[:city] || @resource.city,
@@ -39,14 +39,12 @@ class Api::V1::ResourcesController < ApplicationController
       )
     flash[:info] = "Resource Successfully Updated"
   end
-
-
-
+  
   def find_closest_food_resource
     input_lat = params[:lat]
     input_lng = params[:lng]
     food_distance_data_array = []
-    food_resources = Resource.where(food: true)
+    food_resources = Resource.where(food: true, status: "verified")
     food_resources.each do |resource|
       distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
       food_distance_data_array << {
@@ -62,7 +60,7 @@ class Api::V1::ResourcesController < ApplicationController
     input_lat = params[:lat]
     input_lng = params[:lng]
     health_distance_data_array = []
-    health_resources = Resource.where(health: true)
+    health_resources = Resource.where(health: true, status: "verified")
     health_resources.each do |resource|
       distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
       health_distance_data_array << {
@@ -78,7 +76,7 @@ class Api::V1::ResourcesController < ApplicationController
     input_lat = params[:lat]
     input_lng = params[:lng]
     shelter_distance_data_array = []
-    shelter_resources = Resource.where(shelter: true)
+    shelter_resources = Resource.where(shelter: true, status: "verified")
     shelter_resources.each do |resource|
       distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
       shelter_distance_data_array << {

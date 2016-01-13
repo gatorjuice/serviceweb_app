@@ -5,8 +5,8 @@ class ResourcesController < ApplicationController
   # before_action :auth_admin, except: [:index, :show, :share, :share_form]
 
   def home
-    @resources = Resource.where(status: "verified") 
- 
+    @resources = Resource.all 
+
   end
 
 
@@ -73,10 +73,13 @@ class ResourcesController < ApplicationController
     else
       status = @resource.status
     end
+    p @resource.food
+    p @resource.health
+    p @resource.shelter
     @resource.update(
-      food: params[:food],
-      health: params[:health],
-      shelter: params[:shelter],
+      food: params[:food] || @resource.food,
+      health: params[:health] || @resource.health,
+      shelter: params[:shelter] || @resource.shelter,
       name: params[:name] || @resource.name,
       address: "#{params[:street] || @resource.street}, #{params[:city] || @resource.city}, #{params[:zip_code] || @resource.zip_code}",
       city: params[:city] || @resource.city,
