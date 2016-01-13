@@ -6,6 +6,7 @@ class ResourcesController < ApplicationController
 
   def home
     @resources = Resource.where(status: "verified") 
+ 
   end
 
 

@@ -40,17 +40,54 @@ class Api::V1::ResourcesController < ApplicationController
     flash[:info] = "Resource Successfully Updated"
   end
 
-  def find_closest_resources
+
+
+  def find_closest_food_resource
+    input_lat = params[:lat]
+    input_lng = params[:lng]
     food_distance_data_array = []
     food_resources = Resource.where(food: true)
     food_resources.each do |resource|
-      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [0, 0])
+      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
       food_distance_data_array << {
-        resource: resource,
-        distance: distance
-       }
+        distance: distance,
+        resource: resource
+      }
     end
-    render json: food_distance_data_array
+    sorted = food_distance_data_array.sort_by! { |k| k[:distance] }
+    render json: sorted.first
+  end
+
+  def find_closest_health_resource
+    input_lat = params[:lat]
+    input_lng = params[:lng]
+    health_distance_data_array = []
+    health_resources = Resource.where(health: true)
+    health_resources.each do |resource|
+      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
+      health_distance_data_array << {
+        distance: distance,
+        resource: resource
+      }
+    end
+    sorted = health_distance_data_array.sort_by! { |k| k[:distance] }
+    render json: sorted.first
+  end
+
+  def find_closest_shelter_resource
+    input_lat = params[:lat]
+    input_lng = params[:lng]
+    shelter_distance_data_array = []
+    shelter_resources = Resource.where(shelter: true)
+    shelter_resources.each do |resource|
+      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
+      shelter_distance_data_array << {
+        distance: distance,
+        resource: resource
+      }
+    end
+    sorted = shelter_distance_data_array.sort_by! { |k| k[:distance] }
+    render json: sorted.first
   end
 
 end

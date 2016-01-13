@@ -1,22 +1,50 @@
 /* global angular */
+/* global initMap */
+
 (function() {
   "use strict";
-  angular.module("app").controller("resources", function($scope, $http) {
+  angular.module("app").controller("resources", function($scope, $http, $q) {
 
+    var lat;
+    var lng;
+
+    var deferred = $q.defer();
+    
     $scope.setup = function() {
       $http.get('/api/v1/resources.json').then(function(response) {
         $scope.resources = response.data;
-
-        for (var i = 0; i < $scope.resources.length; ++i) {
-          $scope.resources[i].latitudeDifference = $scope.resources[i].latitude - lat;
-          $scope.unverifiedCount++;
-        }
-
       });
-      $http.get('/api/v1/closest_resources').then(function(response) {
-        $scope.closestFoodResource = response.data;
+
+      getLocation();
+
+      deferred.promise.then(function() {
+
+        $http.get('/api/v1/closest_food_resource?lat=' + lat + '&lng=' + lng).then(function(response) {
+          $scope.closestFoodResource = response.data.resource;
+        });
+
+        $http.get('/api/v1/closest_health_resource?lat=' + lat + '&lng=' + lng).then(function(response) {
+          $scope.closestHealthResource = response.data.resource;
+        });
+
+        $http.get('/api/v1/closest_shelter_resource?lat=' + lat + '&lng=' + lng).then(function(response) {
+          $scope.closestShelterResource = response.data.resource;
+        });
       });
     };
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      }
+    }
+
+    function showPosition(position) {
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
+      initMap(lat, lng);
+      deferred.resolve();
+    }
 
     $scope.deleteResource = function(inputResource) {
       var resourceIndex = $scope.resources.indexOf(inputResource);
@@ -65,7 +93,6 @@
     $scope.searchSelect = function(inputSearchedResource) {
       window.location = '/resources/' + inputSearchedResource.id;
     };
-
 
     window.$scope = $scope;
   });

@@ -27,7 +27,9 @@ Rails.application.routes.draw do
       patch '/resources/:id' => 'resources#update'
       delete '/resources/:id' => 'resources#delete'
 
-      get '/closest_resources' => 'resources#find_closest_resources'
+      get '/closest_food_resource' => 'resources#find_closest_food_resource'
+      get '/closest_health_resource' => 'resources#find_closest_health_resource'
+      get '/closest_shelter_resource' => 'resources#find_closest_shelter_resource'
 
       get '/comments' => 'comments_api#index'
       post '/comments' => 'comments_api#create'
