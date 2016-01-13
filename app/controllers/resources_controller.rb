@@ -119,8 +119,8 @@ class ResourcesController < ApplicationController
     
     p body.length
 
-    account_sid = open('lib/assets/.twilio_api_id').read()
-    auth_token = open('lib/assets/.twilio_api_token').read()
+    account_sid = ENV['TWILIO_API_ID']
+    auth_token = ENV['TWILIO_API_TOKEN']
 
     @client = Twilio::REST::Client.new account_sid, auth_token 
     @client.account.messages.create({
