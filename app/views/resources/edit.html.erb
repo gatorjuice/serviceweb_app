@@ -4,13 +4,13 @@
     <div class="form-group">
       <%= label_tag :resource_type, "Resource Type:", class: "col-xs-3 control-label" %>
       <label class="checkbox-inline col-xs-2">
-        <%= check_box_tag :food, 1, @resource.food ? true : false %> Food
+        <%= check_box_tag :food, true, @resource.food ? true : false %> Food
       </label>
       <label class="checkbox-inline col-xs-2">
-        <%= check_box_tag :health, 1, @resource.health ? true : false %> Health
+        <%= check_box_tag :health, true, @resource.health ? true : false %> Health
       </label>
       <label class="checkbox-inline col-xs-2">
-        <%= check_box_tag :shelter, 1, @resource.shelter ? true : false %> Shelter
+        <%= check_box_tag :shelter, true, @resource.shelter ? true : false %> Shelter
       </label>
     </div>
     <div class="form-group">   

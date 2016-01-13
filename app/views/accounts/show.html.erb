@@ -12,8 +12,12 @@
   <div class="col-md-4">
     <h3>My Ratings</h3>
     <ul>
+    <% if @current_user_resource_ratings.length > 0 %>
       <% @current_user_resource_ratings.each do |rating| %>
-      <li><%= rating.resource.name %> -- <%= rating.my_rating_phrase %></li>
+      <li><%= rating.resource.name if rating.resource %> -- <%= rating.my_rating_phrase %></li>
+      <% end %>
+      <% else %>
+      <p>you haven't rated any resources yet</p>
       <% end %>
     </ul>
   </div>

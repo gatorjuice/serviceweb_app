@@ -2,13 +2,9 @@ class ResourcesController < ApplicationController
 
   require 'socket'
 
-  # before_action :auth_admin, except: [:index, :show, :share, :share_form]
-
   def home
     @resources = Resource.all 
-
   end
-
 
   def index
     @current_location = Geocoder.search(Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address))
@@ -77,9 +73,9 @@ class ResourcesController < ApplicationController
     p @resource.health
     p @resource.shelter
     @resource.update(
-      food: params[:food] || @resource.food,
-      health: params[:health] || @resource.health,
-      shelter: params[:shelter] || @resource.shelter,
+      food: params[:food],
+      health: params[:health],
+      shelter: params[:shelter],
       name: params[:name] || @resource.name,
       address: "#{params[:street] || @resource.street}, #{params[:city] || @resource.city}, #{params[:zip_code] || @resource.zip_code}",
       city: params[:city] || @resource.city,
@@ -128,10 +124,6 @@ class ResourcesController < ApplicationController
       :to => send_to_number,
       :body => body    
       })
-  end
-
-  def recent_comments
-    Comment.all
   end
 
 end
