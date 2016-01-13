@@ -14,3 +14,5 @@
 
 /lib/assets/.twilio_api_id
 /lib/assets/.twilio_api_token
+
+/.env
