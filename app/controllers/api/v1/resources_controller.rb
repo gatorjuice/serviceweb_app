@@ -10,10 +10,15 @@ class Api::V1::ResourcesController < ApplicationController
   end
 
   def delete
-    @resource = Resource.find(params[:id])
-    if @resource.destroy
+    if current_user.admin 
+      @resource = Resource.find(params[:id])
+      if @resource.destroy
+      else
+        render json: { errors: @resource.errors.full_messages }, status: 422
+      end
     else
-      render json: { errors: @resource.errors.full_messages }, status: 422
+      flash[:warning] = "you are not authorized to delete resources."
+      redirect_to "/home"
     end
   end
 

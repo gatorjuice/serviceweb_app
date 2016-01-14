@@ -75,9 +75,7 @@ class ResourcesController < ApplicationController
     else
       status = @resource.status
     end
-    p @resource.food
-    p @resource.health
-    p @resource.shelter
+
     @resource.update(
       food: params[:food],
       health: params[:health],
@@ -96,13 +94,18 @@ class ResourcesController < ApplicationController
   end
 
   def destroy
-    @resource = Resource.find_by(id: params[:id])
-    @resource.destroy
-    flash[:danger] = "Resource Successfully Deleted"
-    if params[:from_unverified_list]
-      redirect_to "/resources?status=unverified"
+    if current_user && current_user.admin
+      @resource = Resource.find_by(id: params[:id])
+      @resource.destroy
+      flash[:danger] = "Resource Successfully Deleted"
+      if params[:from_unverified_list]
+        redirect_to "/resources?status=unverified"
+      else
+        redirect_to "/resources"
+      end
     else
-      redirect_to "/resources"
+      flash[:warning] = "you are not authorized to delete resources"
+      redirect_to "/home"
     end
   end
 
