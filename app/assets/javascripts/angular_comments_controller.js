@@ -23,21 +23,25 @@
 
     $scope.upvote = function(inputComment) {
       $scope.comment = inputComment;
-      $scope.comment.score += 1;
       $http.post('/comment_ratings', {
         commentId: inputComment.id,
         ratingValue: 1
       }).then(function(response) {
-        console.log(response.data);
+        if (response.data.exists === false) {
+          $scope.comment.score += 1;
+        }
       });
     };
 
     $scope.downvote = function(inputComment) {
       $scope.comment = inputComment;
-      $scope.comment.score -= 1;
       $http.post('/comment_ratings', {
         commentId: inputComment.id,
         ratingValue: -1
+      }).then(function(response) {
+        if (response.data.exists === false) {
+          $scope.comment.score -= 1;
+        }
       });
     };
 

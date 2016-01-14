@@ -10,13 +10,11 @@
 
     var deferred = $q.defer();
 
-    
     $scope.setup = function() {
+      getLocation();
       $http.get('/api/v1/resources.json').then(function(response) {
         $scope.resources = response.data;
       });
-
-      getLocation();
 
       deferred.promise.then(function() {
 
@@ -30,6 +28,13 @@
 
         $http.get('/api/v1/closest_shelter_resource?lat=' + lat + '&lng=' + lng).then(function(response) {
           $scope.closestShelterResource = response.data;
+        }).then(function() {
+          $scope.formatPhoneNumber = function(inputNumber) {
+            var firstThree = inputNumber.substring(0,3);
+            var middleThree = inputNumber.substring(3,6);
+            var lastFour = inputNumber.substring(6,10);
+            return "(" + firstThree + ")" + " " + middleThree + "-" + lastFour;
+          };
         });
       });
     };
@@ -93,13 +98,6 @@
 
     $scope.searchSelect = function(inputSearchedResource) {
       window.location = '/resources/' + inputSearchedResource.id;
-    };
-
-    $scope.formatPhoneNumber = function(inputNumber) {
-      var firstThree = inputNumber.substring(0,3);
-      var middleThree = inputNumber.substring(3,6);
-      var lastFour = inputNumber.substring(6,10);
-      return "(" + firstThree + ")" + " " + middleThree + "-" + lastFour;
     };
 
     window.$scope = $scope;

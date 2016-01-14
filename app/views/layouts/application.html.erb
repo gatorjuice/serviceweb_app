@@ -100,7 +100,7 @@
                   <div class="row">
                     <div class="col-xs-12">
                       <ul id="search-results" class="search-result row">
-                        <li ng-click="searchSelect(result)" ng-repeat="result in searchResults | limitTo:resultsShown" class="search-result">{{ result.name }}</li>
+                        <li ng-click="searchSelect(result)" ng-repeat="result in searchResults | limitTo:resultsShown" class="search-result">{{ result.name }} - {{ result.address }}</li>
                       </ul>
                     </div>
                   </div>
