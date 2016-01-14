@@ -28,13 +28,15 @@ class ResourcesController < ApplicationController
   end
 
   def new 
-    unless user_signed_in? 
-      redirect_to '/resources'  
-    end
+    if user_signed_in? 
+      @resource = Resource.new
+    else
+      redirect_to '/resources' 
+    end 
   end
 
   def create
-    Resource.create(
+    @resource = Resource.new(
       food: params[:food],
       health: params[:health],
       shelter: params[:shelter],
@@ -45,10 +47,14 @@ class ResourcesController < ApplicationController
       phone: params[:phone],
       description: params[:description],
       street: params[:street],
-      user_id: current_user.id || nil
+      user_id: current_user.id
       )
-    flash[:success] = "Resource Successfully Created"
-    redirect_to "/resources"
+    if @resource.save
+      flash[:success] = "Resource Successfully Created"
+      redirect_to "/resources"
+    else
+      render :new
+    end
   end
 
   def show

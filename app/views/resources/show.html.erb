@@ -30,7 +30,7 @@
             <p>{{ comment.body }}</p>
           </div>
           <div class="col-xs-2">
-          <% if current_user && current_user.admin %>
+            <% if current_user && current_user.admin %>
             <button ng-click="deleteComment(comment)">Delete</button>
             <% end %>
           </div>
@@ -39,6 +39,11 @@
     </div>
   </div>
   <div class="col-md-6" class="map-container">
+    <div>
+      <h3>About the Contributor</h3>
+      <h4><%= @resource.user.full_name %></h4>
+      <p><%= @resource.user.description %></p>
+    </div>
     <iframe width="100%" height="450" frameborder="0" style="border:0" src=<%= "https://www.google.com/maps/embed/v1/view?zoom=16&center=#{@resource.latitude}%2C#{@resource.longitude}&key=#{ENV['GOOGLE_EMBED_KEY']}" %> allowfullscreen></iframe>
   </div>
 </div>

@@ -4,6 +4,9 @@
       <div class="panel-heading">
         <h3 class="panel-title">Quick Share</h3>
       </div>
+      <div class="panel-body">
+        <p>{{ panelText }}</p>
+      </div>
       <table style="width:100%" class="table">
         <col width="5%">
         <col width="30%">
@@ -18,21 +21,21 @@
           <th>Distance</th>
         </tr>
         <tr>
-          <td style="text-align:right">F:</td>
+          <td><%= image_tag('foodicon.png') %></td>
           <td><a href="/resources/{{closestFoodResource.resource.id}}">{{ closestFoodResource.resource.name }}</a></td>
           <td>{{ closestFoodResource.resource.address }}</td>
           <td>{{ formatPhoneNumber(closestFoodResource.resource.phone) }}</td>
           <td>{{ closestFoodResource.distance | number:2 }} mi.</td>
         </tr> 
         <tr> 
-          <td style="text-align:right">H:</td>
+          <td><%= image_tag('healthicon.png') %></td>
           <td><a href="/resources/{{closestHealthResource.resource.id}}">{{ closestHealthResource.resource.name }}</td>
           <td>{{ closestHealthResource.resource.address }}</td>
           <td>{{ formatPhoneNumber(closestHealthResource.resource.phone) }}</td>
           <td>{{ closestHealthResource.distance | number:2}} mi.</td>
         </tr> 
         <tr>
-          <td style="text-align:right">S:</td>
+          <td><%= image_tag('sheltericon.png') %></td>
           <td><a href="/resources/{{closestShelterResource.resource.id}}">{{ closestShelterResource.resource.name }}</td>
           <td>{{ closestShelterResource.resource.address }}</td>
           <td>{{ formatPhoneNumber(closestShelterResource.resource.phone) }}</td>
