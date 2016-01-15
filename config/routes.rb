@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
   devise_for :users
+
+  get 'demo_path' => 'resources#demo'
+
   get "/" => 'resources#home'
   get "/home" => 'resources#home'
   get "/account" => 'accounts#show'

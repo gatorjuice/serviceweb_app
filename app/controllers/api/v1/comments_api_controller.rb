@@ -7,6 +7,7 @@ class Api::V1::CommentsApiController < ApplicationController
 
   def show
     @comments = Comment.where(resource_id: params[:resource_id])
+    @comments_count = @comments.length
     current_user_comments = Comment.where("user_id = ? AND resource_id", "#{current_user.id}, #{params[:resource_id]}")
   end
 

@@ -59,27 +59,36 @@
     $scope.deleteResource = function(inputResource) {
       var resourceIndex = $scope.resources.indexOf(inputResource);
       var id = inputResource.id;
-      $http.delete('/api/v1/resources/' + id);
-      $scope.resources.splice(resourceIndex, 1);
+      var rating = -1;
+      $http.post('/api/v1/resource_ratings', {
+        id: id,
+        rating: rating
+      }).then(function() {
+        $scope.resources.splice(resourceIndex, 1);
+      });
     };
 
     $scope.verifyResource = function(inputResource) {
       var resourceIndex = $scope.resources.indexOf(inputResource);
       var id = inputResource.id;
-      $http.patch('/api/v1/resources/' + id, {
-        status: "verified"
+      var rating = 1;
+      $http.post('/api/v1/resource_ratings', {
+        id: id,
+        rating: rating
+      }).then(function() {
+        $scope.resources.splice(resourceIndex, 1);
       });
-      $scope.resources.splice(resourceIndex, 1);
     };
 
     $scope.unsureResource = function(inputResource) {
-      var resourceId = inputResource.id;
+      var resourceIndex = $scope.resources.indexOf(inputResource);
+      var id = inputResource.id;
       var rating = 0;
       $http.post('/api/v1/resource_ratings', {
-        id: resourceId,
+        id: id,
         rating: rating
-      }).then(function(response) {
-        console.log(response.data);
+      }).then(function() {
+        $scope.resources.splice(resourceIndex, 1);
       });
     };
 

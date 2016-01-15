@@ -6,7 +6,7 @@
     $scope.setup = function() {
       $http.get('/api/v1/comments.json').then(function(response) {
         $scope.comments = response.data;
-        $scope.commentsShownCount = 5;
+        $scope.commentsShownCount = 3;
       });
     };
 

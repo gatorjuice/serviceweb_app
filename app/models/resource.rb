@@ -3,8 +3,9 @@ class Resource < ActiveRecord::Base
   validates :name, presence: true
   validates :street, presence: true
   validates :phone, length: { is: 10 }
-  validates :latitude, presence: true
-  validates :longitude, presence: true
+  validates :zip_code, length: { is: 5 }
+  # validates :latitude, presence: true
+  # validates :longitude, presence: true
 
   
   has_many :images

@@ -5,7 +5,10 @@ class Api::V1::ResourcesController < ApplicationController
       string = params[:search].downcase
       @resources = Resource.where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{string}%", "%#{string}%")
     else
-      @resources = Resource.all
+      @resources = []
+      Resource.all.each do |resource|
+        @resources << resource if resource.resource_ratings.exists?(user_id: current_user.id) == false
+      end
     end
   end
 

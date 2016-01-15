@@ -43,7 +43,7 @@ class ResourcesController < ApplicationController
       name: params[:name],
       address: "#{params[:street]}, #{params[:city]}, #{params[:zip_code]}",
       city: params[:city],
-      zip_code: params[:zip_code],
+      zip_code: /[^\D]\d*/.match(params[:zip_code]),
       phone: params[:phone],
       description: params[:description],
       street: params[:street],
@@ -59,6 +59,8 @@ class ResourcesController < ApplicationController
 
   def show
     @resource = Resource.find_by(id: params[:id])
+    comments = Comment.where(resource_id: params[:resource_id])
+    @comments_count = comments.length
     if current_user
       @my_rating = ResourceRating.find_by(resource_id: @resource.id, user_id: current_user.id)
     end
@@ -131,7 +133,7 @@ class ResourcesController < ApplicationController
         from: '+17089548869',
         to: send_to_number,
         body: body    
-      )
+        )
     rescue
       flash[:warning] = "something went wrong please try again."
       redirect_to "/home"
@@ -141,6 +143,39 @@ class ResourcesController < ApplicationController
     end
   end
 
+
+  def demo
+    i = 1
+    resources = Resource.where("name LIKE ?", "%test resource%")
+    resources.each do |resource|
+      resource.destroy
+    end
+    10.times do
+      Resource.create(
+      food: true,
+      health: true,
+      shelter: true,
+      name: "test resource #{i}",
+      address: "4#{i}00 W Lawrence, Chicago, 60625",
+      city: "Chicago",
+      zip_code: "60625",
+      phone: "3123454567",
+      description: "test resource for demonstration",
+      street: "4#{i}00 W Lawrence",
+      user_id: 2
+      )
+      i = i + 1
+      sleep(1)
+    end
+    redirect_to "/home"
+  end
+
 end
+
+
+
+
+
+
 
 
