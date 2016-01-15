@@ -7,8 +7,8 @@ class ResourcesController < ApplicationController
   end
 
   def index
-    @current_location = Geocoder.search(Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address))
-    @location = Geokit::Geocoders::IpGeocoder.geocode(@current_location[0].data["ip"].to_s)
+    # @current_location = Geocoder.search(Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address))
+    # @location = Geokit::Geocoders::IpGeocoder.geocode(@current_location[0].data["ip"].to_s)
     if params[:type] == "food"
       @resources = Resource.where("food = ? AND status = ?", "true", "verified").order(:name)
     elsif params[:type] == "health"
@@ -122,17 +122,23 @@ class ResourcesController < ApplicationController
 
     body = "Call #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com learn more."
     
-    p body.length
-
     account_sid = ENV['TWILIO_API_ID']
     auth_token = ENV['TWILIO_API_TOKEN']
 
-    @client = Twilio::REST::Client.new account_sid, auth_token 
-    @client.account.messages.create({
-      :from => '+17089548869',
-      :to => send_to_number,
-      :body => body    
-      })
+    begin
+      @client = Twilio::REST::Client.new account_sid, auth_token 
+      @client.account.messages.create(
+        from: '+17089548869',
+        to: send_to_number,
+        body: body    
+      )
+    rescue
+      flash[:warning] = "something went wrong please try again."
+      redirect_to "/home"
+    else
+      flash[:success] = "you have successfully shared the resource. Thank you."
+      redirect_to "/home"
+    end
   end
 
 end
