@@ -19,6 +19,7 @@
         $scope.comments.unshift(response.data);
       });
       $scope.newCommentBody = null;
+      $('#comment-submit').blur();
     };
 
     $scope.upvote = function(inputComment) {

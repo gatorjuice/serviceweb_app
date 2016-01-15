@@ -32,7 +32,7 @@
         $http.get('/api/v1/closest_shelter_resource?lat=' + lat + '&lng=' + lng).then(function(response) {
           $scope.closestShelterResource = response.data;
         }).then(function() {
-          $scope.panelText = "If you have someone in need, select the resource that meets their needs and enter the person's phone number on the next page that loads. Your number and personal information will not be texted along with the resource.";
+          $scope.panelText = "Select the resource that meets their needs and enter the person's phone number on the next page that loads. Your number and personal information will not be texted along with the resource.";
           $scope.formatPhoneNumber = function(inputNumber) {
             var firstThree = inputNumber.substring(0,3);
             var middleThree = inputNumber.substring(3,6);

@@ -1,52 +1,54 @@
 <div class="row" id="map-row">
-  <div class="col-md-7">
+  <div class="home">
+    <div class="col-md-7">
     <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Quick Share</h3>
+        <div class="panel-heading">
+          <h3 class="panel-title">Quick Share</h3>
+        </div>
+        <div class="panel-body">
+          <p>{{ panelText }}</p>
+        </div>
+        <table style="width:100%" class="table">
+          <col width="5%">
+          <col width="30%">
+          <col width="35%">
+          <col width="20%">
+          <col width="10%">
+          <tr>
+            <th></th>
+            <th>Closest Resource</th>
+            <th>Full Address</th>
+            <th>Phone</th>
+            <th>Distance</th>
+          </tr>
+          <tr>
+            <td><%= image_tag('foodicon.png') %></td>
+            <td><a href="/resources/{{closestFoodResource.resource.id}}">{{ closestFoodResource.resource.name }}</a></td>
+            <td>{{ closestFoodResource.resource.address }}</td>
+            <td>{{ formatPhoneNumber(closestFoodResource.resource.phone) }}</td>
+            <td>{{ closestFoodResource.distance | number:2 }} mi.</td>
+          </tr> 
+          <tr> 
+            <td><%= image_tag('healthicon.png') %></td>
+            <td><a href="/resources/{{closestHealthResource.resource.id}}">{{ closestHealthResource.resource.name }}</td>
+            <td>{{ closestHealthResource.resource.address }}</td>
+            <td>{{ formatPhoneNumber(closestHealthResource.resource.phone) }}</td>
+            <td>{{ closestHealthResource.distance | number:2}} mi.</td>
+          </tr> 
+          <tr>
+            <td><%= image_tag('sheltericon.png') %></td>
+            <td><a href="/resources/{{closestShelterResource.resource.id}}">{{ closestShelterResource.resource.name }}</td>
+            <td>{{ closestShelterResource.resource.address }}</td>
+            <td>{{ formatPhoneNumber(closestShelterResource.resource.phone) }}</td>
+            <td>{{ closestShelterResource.distance | number:2}} mi.</td>
+          </tr>    
+        </table>
       </div>
-      <div class="panel-body">
-        <p>{{ panelText }}</p>
-      </div>
-      <table style="width:100%" class="table">
-        <col width="5%">
-        <col width="30%">
-        <col width="35%">
-        <col width="20%">
-        <col width="10%">
-        <tr>
-          <th></th>
-          <th>Closest Resource</th>
-          <th>Full Address</th>
-          <th>Phone</th>
-          <th>Distance</th>
-        </tr>
-        <tr>
-          <td><%= image_tag('foodicon.png') %></td>
-          <td><a href="/resources/{{closestFoodResource.resource.id}}">{{ closestFoodResource.resource.name }}</a></td>
-          <td>{{ closestFoodResource.resource.address }}</td>
-          <td>{{ formatPhoneNumber(closestFoodResource.resource.phone) }}</td>
-          <td>{{ closestFoodResource.distance | number:2 }} mi.</td>
-        </tr> 
-        <tr> 
-          <td><%= image_tag('healthicon.png') %></td>
-          <td><a href="/resources/{{closestHealthResource.resource.id}}">{{ closestHealthResource.resource.name }}</td>
-          <td>{{ closestHealthResource.resource.address }}</td>
-          <td>{{ formatPhoneNumber(closestHealthResource.resource.phone) }}</td>
-          <td>{{ closestHealthResource.distance | number:2}} mi.</td>
-        </tr> 
-        <tr>
-          <td><%= image_tag('sheltericon.png') %></td>
-          <td><a href="/resources/{{closestShelterResource.resource.id}}">{{ closestShelterResource.resource.name }}</td>
-          <td>{{ closestShelterResource.resource.address }}</td>
-          <td>{{ formatPhoneNumber(closestShelterResource.resource.phone) }}</td>
-          <td>{{ closestShelterResource.distance | number:2}} mi.</td>
-        </tr>    
-      </table>
     </div>
-  </div>
-  <div class="col-md-5 well" id="map-container">
-    <div id="map"></div>
-    <p id="demo"></p>
+    <div class="col-md-5 well" id="map-container">
+      <div id="map"></div>
+      <p id="demo"></p>
+    </div>
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">

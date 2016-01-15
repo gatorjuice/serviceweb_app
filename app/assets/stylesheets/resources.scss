@@ -76,8 +76,12 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
   transition: all 0.2s ease-in-out;
 }
 
+.home {
+  height: 350px;
+}
+
 #map-container {
-  height: 355px;
+  height: 100%;
   margin-bottom: 25px;
   padding: 5px;
 }
@@ -132,12 +136,21 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
   a {
     text-decoration: none;
   }
+  .caption {
+    padding-top: 0;
+  }
 }
 
 .thumbnail {
   text-align: center;
   padding: 20px;
   margin: 0;
+}
+
+.thumbnail-caption {
+  h3 {
+    margin-top: 0;
+  }
 }
 
 .glyphicon {

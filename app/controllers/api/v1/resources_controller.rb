@@ -3,7 +3,7 @@ class Api::V1::ResourcesController < ApplicationController
   def index
     if params[:search]
       string = params[:search].downcase
-      @resources = Resource.where("lower(name) LIKE ?", "%#{string}%")
+      @resources = Resource.where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{string}%", "%#{string}%")
     else
       @resources = Resource.all
     end
