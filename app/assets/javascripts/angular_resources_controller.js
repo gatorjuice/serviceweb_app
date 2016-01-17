@@ -14,7 +14,7 @@
     $scope.setup = function() {
       getLocation();
       $http.get('/api/v1/resources.json').then(function(response) {
-        $scope.resources = response.data;
+        $scope.unverifiedResources = response.data;
       });
 
       $scope.panelText = "The closest food, health, and shelter resources are loading. Please wait.";
@@ -57,39 +57,47 @@
     }
 
     $scope.deleteResource = function(inputResource) {
-      var resourceIndex = $scope.resources.indexOf(inputResource);
+      var resourceIndex = $scope.unverifiedResources.indexOf(inputResource);
       var id = inputResource.id;
       var rating = -1;
       $http.post('/api/v1/resource_ratings', {
         id: id,
         rating: rating
       }).then(function() {
-        $scope.resources.splice(resourceIndex, 1);
+        $scope.unverifiedResources.splice(resourceIndex, 1);
       });
     };
 
     $scope.verifyResource = function(inputResource) {
-      var resourceIndex = $scope.resources.indexOf(inputResource);
+      var resourceIndex = $scope.unverifiedResources.indexOf(inputResource);
       var id = inputResource.id;
       var rating = 1;
       $http.post('/api/v1/resource_ratings', {
         id: id,
         rating: rating
       }).then(function() {
-        $scope.resources.splice(resourceIndex, 1);
+        $scope.unverifiedResources.splice(resourceIndex, 1);
       });
     };
 
     $scope.unsureResource = function(inputResource) {
-      var resourceIndex = $scope.resources.indexOf(inputResource);
+      var resourceIndex = $scope.unverifiedResources.indexOf(inputResource);
       var id = inputResource.id;
       var rating = 0;
       $http.post('/api/v1/resource_ratings', {
         id: id,
         rating: rating
       }).then(function() {
-        $scope.resources.splice(resourceIndex, 1);
+        $scope.unverifiedResources.splice(resourceIndex, 1);
       });
+    };
+
+    $scope.unverifiedResourcesExist = function() {
+      if ($scope.unverifiedResources === undefined) {
+        return true;
+      } else {
+        return $scope.unverifiedResources.length > 0;
+      }
     };
 
     $scope.isUnverified = function(inputResource) {
@@ -111,6 +119,12 @@
 
     $scope.searchSelect = function(inputSearchedResource) {
       window.location = '/resources/' + inputSearchedResource.id;
+    };
+
+    $scope.hideDrawer = function() {
+      if ($scope.unverifiedResources.lenth < 1) {
+        $('#alert-button').hide();
+      }
     };
 
     window.$scope = $scope;

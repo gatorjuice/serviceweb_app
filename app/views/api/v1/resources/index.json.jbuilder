@@ -1,6 +1,6 @@
-json.array!(@resources) do |resource|
+json.array!(@unverified_resources) do |resource|
   json.id resource.id
-  json.status resource.status
+  json.score resource.score
   json.name resource.name
   json.address resource.address
   json.street resource.street

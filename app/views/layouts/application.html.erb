@@ -11,13 +11,13 @@
 </head>
 <body ng-app="app">
   <div ng-controller="resources">
-    <div id="drawer-contents" ng-init="setup()">
+    <div id="drawer-contents" ng-init="setup()" ng-if="unverifiedResourcesExist()">
       <div class="nowrap-slider">
         <div class="row">
-          <div class="col-md-4 span5" ng-repeat="resource in resources" ng-if="isUnverified(resource)">
+          <div class="col-md-4 span5" ng-repeat="resource in unverifiedResources">
             <div class="thumbnail unverified-thumb">
               <div class="caption unverified-resource-card">
-                <h3>{{ resource.name }}</h3>
+                <h4>{{ resource.name }}</h4>
                 <p>{{ resource.street }}</p>
                 <p>{{ resource.city }}, {{ resource.zip_code }}</p>
                 <p>submitted by: {{ resource.user.first_name }} {{ resource.user.last_name }}</p>
@@ -33,7 +33,7 @@
     <div class="container">
       <div id="drawer">
         <div class="row">
-          <div class="col-md-4 col-md-offset-4 col-sm-12">
+          <div class="col-md-4 col-md-offset-4 col-sm-12" id="alert-button" ng-if="unverifiedResourcesExist()">
             <% if current_user && @unverified_resources_count > 0 %>
             <span class="badge pulse-button">you have resources to weigh in on.</span>
             <% end %>
@@ -145,3 +145,12 @@
   </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

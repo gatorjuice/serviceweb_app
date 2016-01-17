@@ -62,7 +62,7 @@
       map: map,
       title: 'Your Location'
     });
-    <% @resources.each do |resource| %>
+    <% @all_verified_resources.each do |resource| %>
     <% if resource.food %>
     <% icon_type = 'foodicon.png' %>
     <% elsif resource.health %>

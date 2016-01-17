@@ -3,7 +3,11 @@ class ResourcesController < ApplicationController
   require 'socket'
 
   def home
-    @resources = Resource.all 
+    @resources = Resource.all
+    @all_verified_resources = []
+    @resources.each do |resource|
+      @all_verified_resources << resource if resource.score > 0
+    end
   end
 
   def index
@@ -145,28 +149,7 @@ class ResourcesController < ApplicationController
 
 
   def demo
-    i = 1
-    resources = Resource.where("name LIKE ?", "%test resource%")
-    resources.each do |resource|
-      resource.destroy
-    end
-    10.times do
-      Resource.create(
-      food: true,
-      health: true,
-      shelter: true,
-      name: "test resource #{i}",
-      address: "4#{i}00 W Lawrence, Chicago, 60625",
-      city: "Chicago",
-      zip_code: "60625",
-      phone: "3123454567",
-      description: "test resource for demonstration",
-      street: "4#{i}00 W Lawrence",
-      user_id: 2
-      )
-      i = i + 1
-      sleep(1)
-    end
+    ResourceRating.all.each {|x| x.destroy}
     redirect_to "/home"
   end
 

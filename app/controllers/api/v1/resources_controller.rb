@@ -3,13 +3,16 @@ class Api::V1::ResourcesController < ApplicationController
   def index
     if params[:search]
       string = params[:search].downcase
-      @resources = Resource.where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{string}%", "%#{string}%")
+      @unverified_resources = Resource.where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{string}%", "%#{string}%")
     else
-      @resources = []
+      @unverified_resources = []
       Resource.all.each do |resource|
-        @resources << resource if resource.resource_ratings.exists?(user_id: current_user.id) == false
+        @unverified_resources << resource if resource.resource_ratings.exists?(user_id: current_user.id) == false
       end
     end
+    p @unverified_resources
+    @unverified_resources
+
   end
 
   def delete
@@ -52,13 +55,17 @@ class Api::V1::ResourcesController < ApplicationController
     input_lat = params[:lat]
     input_lng = params[:lng]
     food_distance_data_array = []
-    food_resources = Resource.where(food: true, status: "verified")
+    food_resources = Resource.where(food: true)
+
     food_resources.each do |resource|
-      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
-      food_distance_data_array << {
-        distance: distance,
-        resource: resource
-      }
+      if resource.score > 0 
+        distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
+        
+        food_distance_data_array << {
+          distance: distance,
+          resource: resource
+        }
+      end
     end
     sorted = food_distance_data_array.sort_by! { |k| k[:distance] }
     render json: sorted.first
@@ -68,13 +75,17 @@ class Api::V1::ResourcesController < ApplicationController
     input_lat = params[:lat]
     input_lng = params[:lng]
     health_distance_data_array = []
-    health_resources = Resource.where(health: true, status: "verified")
+    health_resources = Resource.where(health: true)
+
     health_resources.each do |resource|
-      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
-      health_distance_data_array << {
-        distance: distance,
-        resource: resource
-      }
+      if resource.score > 0 
+        distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
+        
+        health_distance_data_array << {
+          distance: distance,
+          resource: resource
+        }
+      end
     end
     sorted = health_distance_data_array.sort_by! { |k| k[:distance] }
     render json: sorted.first
@@ -84,13 +95,17 @@ class Api::V1::ResourcesController < ApplicationController
     input_lat = params[:lat]
     input_lng = params[:lng]
     shelter_distance_data_array = []
-    shelter_resources = Resource.where(shelter: true, status: "verified")
+    shelter_resources = Resource.where(shelter: true)
+
     shelter_resources.each do |resource|
-      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
-      shelter_distance_data_array << {
-        distance: distance,
-        resource: resource
-      }
+      if resource.score > 0 
+        distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [input_lat, input_lng])
+        
+        shelter_distance_data_array << {
+          distance: distance,
+          resource: resource
+        }
+      end
     end
     sorted = shelter_distance_data_array.sort_by! { |k| k[:distance] }
     render json: sorted.first
