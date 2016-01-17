@@ -4,7 +4,8 @@
   angular.module("app").controller("comments", function($scope, $http) {
 
     $scope.setup = function() {
-      $http.get('/api/v1/comments.json').then(function(response) {
+      var resourceId = window.location.pathname.split("/")[2];
+      $http.get('/api/v1/comments.json?resource_id=' + resourceId).then(function(response) {
         $scope.comments = response.data;
         $scope.commentsShownCount = 3;
       });

@@ -55,7 +55,7 @@ class ResourcesController < ApplicationController
       )
     if @resource.save
       flash[:success] = "Resource Successfully Created"
-      redirect_to "/resources"
+      redirect_to "/home"
     else
       render :new
     end
@@ -126,7 +126,7 @@ class ResourcesController < ApplicationController
     address = params[:address]
     description = params[:description]
 
-    body = "Call #{name}\nPhone\n#{phone}\nAddress\n#{address}"#\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com learn more."
+    body = "Call #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com to learn more."
     
     account_sid = ENV['TWILIO_API_ID']
     auth_token = ENV['TWILIO_API_TOKEN']

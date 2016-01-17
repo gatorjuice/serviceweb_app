@@ -1,7 +1,7 @@
 class Api::V1::CommentsApiController < ApplicationController
 
   def index
-    comments = Comment.all
+    comments = Comment.where(resource_id: params[:resource_id])
     @comments = comments.sort_by { |comment| comment.total_rating }.reverse
   end
 

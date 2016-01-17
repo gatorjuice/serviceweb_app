@@ -55,7 +55,7 @@
         <%= text_area_tag :description, @resource.description, rows: 5, class: "form-control"%>
       </div>
     </div>
-    <% if current_user && @resource.user.id == current_user.id %>
+    <% if current_user && @resource.user.id == current_user.id or current_user.admin %>
       <div class="form-group">
         <div class="col-xs-6 pull-right">
           <%= submit_tag "Update", class: "btn btn-info" %>
