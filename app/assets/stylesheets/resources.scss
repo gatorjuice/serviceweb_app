@@ -82,6 +82,10 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
 
 }
 
+.modal-header, .modal-footer {
+  background-image: image-url('formbackground.jpg');
+}
+
 #map-container {
   height: 100%;
   margin-bottom: 25px;
