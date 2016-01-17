@@ -19,6 +19,7 @@ class Api::V1::ResourcesController < ApplicationController
     if current_user.admin 
       @resource = Resource.find(params[:id])
       if @resource.destroy
+        redirect_to "/home"
       else
         render json: { errors: @resource.errors.full_messages }, status: 422
       end
@@ -109,6 +110,23 @@ class Api::V1::ResourcesController < ApplicationController
     end
     sorted = shelter_distance_data_array.sort_by! { |k| k[:distance] }
     render json: sorted.first
+  end
+
+  def leaderboard
+    leaderboard = []
+    resources = Resource.all
+    resources.each do |resource|
+      if resource.score > 0
+        leaderboard << {
+          resource: resource,
+          score: resource.score
+        }
+      end
+    end
+
+    leaderboard.sort_by! {|resource| resource[:score] }
+    p leaderboard.first
+    render json: leaderboard
   end
 
 end

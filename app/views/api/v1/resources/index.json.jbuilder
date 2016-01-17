@@ -2,6 +2,8 @@ json.array!(@unverified_resources) do |resource|
   json.id resource.id
   json.score resource.score
   json.name resource.name
+  json.services resource.display_resources
+  json.phone resource.phone_with_dashes
   json.address resource.address
   json.street resource.street
   json.city resource.city

@@ -40,6 +40,8 @@ Rails.application.routes.draw do
 
       post '/resource_ratings' => 'resource_ratings#create'
 
+      get '/leaderboard' => 'resources#leaderboard'
+
     end
   end
 

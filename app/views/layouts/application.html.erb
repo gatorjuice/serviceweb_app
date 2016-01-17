@@ -20,6 +20,8 @@
             <div class="thumbnail unverified-thumb">
               <div class="caption unverified-resource-card">
                 <a href="/resources/{{resource.id}}"><h4>{{ resource.name }}</h4></a>
+                <p>{{ resource.services }}</p>
+                <p>{{ resource.phone }}</p>
                 <p>{{ resource.street }}</p>
                 <p>{{ resource.city }}, {{ resource.zip_code }}</p>
                 <p>submitted by: {{ resource.user.first_name }} {{ resource.user.last_name }}</p>
@@ -169,7 +171,6 @@
                   </div>
                 </div>
               </div>
-
               <% else %> 
               <h4>Select icon to search existing resources near you.</h4>
               <% end %>

@@ -104,10 +104,11 @@ class ResourcesController < ApplicationController
       @resource = Resource.find_by(id: params[:id])
       @resource.destroy
       flash[:danger] = "Resource Successfully Deleted"
+      redirect_to "/home"
       if params[:from_unverified_list]
         redirect_to "/resources?status=unverified"
       else
-        redirect_to "/resources"
+        redirect_to "/home"
       end
     else
       flash[:warning] = "you are not authorized to delete resources"

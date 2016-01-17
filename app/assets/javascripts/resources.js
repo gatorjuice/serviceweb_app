@@ -4,6 +4,10 @@
 /* global downVote */
 
 // var drawerOpen = false;
+
+
+
+
 var map;
 
 function toggleDrawer() {
