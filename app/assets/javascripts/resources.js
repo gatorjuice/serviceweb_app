@@ -38,4 +38,6 @@ $(document).ready(function() {
   $('.js-thumbs-down').on("click", function() {
     downVote();
   });
+
+
 });

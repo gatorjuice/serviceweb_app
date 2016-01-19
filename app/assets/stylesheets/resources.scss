@@ -79,15 +79,22 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
 .home {
   height: 350px;
 
+}
 
+.modal-body {
+  background-image: image-url('sos.png');
 }
 
 .modal-header, .modal-footer {
-  background-image: image-url('formbackground.jpg');
+  // background-image: image-url('formbackground.jpg');
+}
+
+.modal-header {
+  text-align: center;
 }
 
 #map-container {
-  height: 100%;
+  height: 330px;
   margin-bottom: 25px;
   padding: 5px;
 }
@@ -217,4 +224,8 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
     transition: 0.5s;
     cursor: pointer;
   }
+}
+
+tr, td, th {
+  text-align: center;
 }

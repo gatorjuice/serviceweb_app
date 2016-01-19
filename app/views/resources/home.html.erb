@@ -1,6 +1,5 @@
 <div id="home-panel"></div>
 <div class="row" id="map-row">
-  <div class="home">
     <div class="col-md-7">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -27,21 +26,21 @@
             <td><a href="/resources/{{closestFoodResource.resource.id}}">{{ closestFoodResource.resource.name }}</a></td>
             <td>{{ closestFoodResource.resource.address }}</td>
             <td>{{ formatPhoneNumber(closestFoodResource.resource.phone) }}</td>
-            <td>{{ closestFoodResource.distance | number:2 }} mi.</td>
+            <td>{{ closestFoodResource.distance | number:1 }} mi</td>
           </tr> 
           <tr> 
             <td><%= image_tag('healthicon.png') %></td>
             <td><a href="/resources/{{closestHealthResource.resource.id}}">{{ closestHealthResource.resource.name }}</td>
             <td>{{ closestHealthResource.resource.address }}</td>
             <td>{{ formatPhoneNumber(closestHealthResource.resource.phone) }}</td>
-            <td>{{ closestHealthResource.distance | number:2}} mi.</td>
+            <td>{{ closestHealthResource.distance | number:1 }} mi</td>
           </tr> 
           <tr>
             <td><%= image_tag('sheltericon.png') %></td>
             <td><a href="/resources/{{closestShelterResource.resource.id}}">{{ closestShelterResource.resource.name }}</td>
             <td>{{ closestShelterResource.resource.address }}</td>
             <td>{{ formatPhoneNumber(closestShelterResource.resource.phone) }}</td>
-            <td>{{ closestShelterResource.distance | number:2}} mi.</td>
+            <td>{{ closestShelterResource.distance | number:1 }} mi</td>
           </tr>    
         </table>
       </div>
@@ -50,7 +49,6 @@
       <div id="map"></div>
       <p id="demo"></p>
     </div>
-  </div>
 </div>
 <script type="text/javascript" charset="utf-8">
   function initMap(lat, lng) {

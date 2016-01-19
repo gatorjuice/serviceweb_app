@@ -6,6 +6,7 @@
   "use strict";
   angular.module("app").controller("resources", function($scope, $http, $q) {
 
+
     var opts = {
       lines: 13, // The number of lines to draw
       length: 28, // The length of each line
@@ -118,6 +119,16 @@
       }).then(function() {
         $scope.unverifiedResources.splice(resourceIndex, 1);
       });
+    };
+
+    $scope.showHelp = function(inputVote) {
+      if (inputVote === 'upvote') {
+        console.log("you know of this resource and agree with it's legitimacy.");
+      } else if (inputVote === 'downvote') {
+        console.log("you believe this reource to be spam or not correctly identified.");
+      } else {
+        console.log("you are unsure of this resource but do not doubt it's legitimacy.");
+      }
     };
 
     $scope.unverifiedResourcesExist = function() {

@@ -119,6 +119,7 @@ class Api::V1::ResourcesController < ApplicationController
       if resource.score > 0
         leaderboard << {
           resource: resource,
+          services: resource.display_resources.capitalize,
           score: resource.score
         }
       end

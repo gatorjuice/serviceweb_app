@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   get "/" => 'resources#home'
   get "/home" => 'resources#home'
-  get "/account" => 'accounts#show'
+
+
+  get "/accounts/:id" => 'accounts#show'
 
   get '/resources' => 'resources#index'
   get '/resources/new' => 'resources#new'

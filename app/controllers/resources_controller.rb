@@ -11,27 +11,15 @@ class ResourcesController < ApplicationController
   end
 
   def index
-    # @current_location = Geocoder.search(Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address))
-    # @location = Geokit::Geocoders::IpGeocoder.geocode(@current_location[0].data["ip"].to_s)
-    if params[:type] == "food"
-      @resources = Resource.where("food = ? AND status = ?", "true", "verified").order(:name)
-    elsif params[:type] == "health"
-      @resources = Resource.where("health = ? AND status = ?", "true", "verified").order(:name)
-    elsif params[:type] == "shelter"
-      @resources = Resource.where("shelter = ? AND status = ?", "true", "verified").order(:name)
-    elsif params[:status] == "unverified"
-      if @unverified_resources_count == 0
-        flash[:info] = "completed resource verification"
-        redirect_to "/resources"
-      else
-        @resources = Resource.where(status: "unverified").order(:name)
-      end
-    else
-      @resources = Resource.where(status: "verified").order(:name)
+    @resources = []
+    resources = Resource.where("#{params[:type]}": true)
+    resources.each do |resource|
+      @resources << resource if resource.score > 0
     end
+    @resources.sort_by! { |resource| resource.score }
   end
 
-  def new 
+  def new
     if user_signed_in? 
       @resource = Resource.new
     else
@@ -54,6 +42,11 @@ class ResourcesController < ApplicationController
       user_id: current_user.id
       )
     if @resource.save
+      ResourceRating.create(
+        resource_id: @resource.id,
+        user_id: @resource.user_id,
+        rating: 1
+      )
       flash[:success] = "Resource Successfully Created"
       redirect_to "/home"
     else

@@ -3,12 +3,10 @@
     <table style="width:100%" class="table">
       <tr>
         <th>Resource Name</th>
-        <th></th>
+        <th>Score</th>
         <th>Full Address</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>Zip Code</th>
         <th>Phone Number</th>
+        <th>Contributor</th>
       </tr>
       <% @resources.each do |resource| %>
       <tr>
@@ -17,20 +15,10 @@
           <%= resource.name %>
           <% end %>
         </td>
-        <td>
-          <% if resource.status != "verified" %>
-          <%= link_to "Verify", "/resources/#{resource.id}?status=verified", method: :patch %> | <%= link_to "Delete", "/resources/#{resource.id}?from_unverified_list=true", method: :delete %>
-          <% else %>
-          <% if user_signed_in? %>
-          <%= link_to "Edit", "/resources/#{resource.id}/edit" %>
-          <% end %>
-          <% end %>
-        </td>
+        <td><%= resource.score %></td>
         <td><%= resource.address %></td>
-        <td><%= resource.street %></td>
-        <td><%= resource.city %></td>
-        <td><%= resource.zip_code %></td>
         <td><%= resource.phone_with_dashes %></td>
+        <td><%= resource.user.full_name %></td>
       </tr>    
       <% end %>
     </table>
