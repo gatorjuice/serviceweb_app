@@ -50,14 +50,16 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="C)lose"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Share <%= @resource.name %>?</h4>
           </div>
           <div class="modal-body">
             <%= form_tag "/resources/#{@resource.id}/share", method: :post do %>
             <div class="form-group">
               <%= label_tag "Send Resource to Phone Number:" %>
-              <%= telephone_field_tag :send_to_number, nil, class: "special-input form-control" %>
+              <%= telephone_field_tag :send_to_number, nil, class: "special-input form-control", placeholder: "type number without dashes or spaces." %>
+              <%= label_tag "Optional Brief Message:" %>
+              <%= text_field_tag :opt_message, nil, class: "form-control", placeholder: "This will apear in text with resource." %>
               <%= hidden_field_tag :name, @resource.name %>
               <%= hidden_field_tag :address, @resource.address %>
               <%= hidden_field_tag :phone, @resource.phone %>

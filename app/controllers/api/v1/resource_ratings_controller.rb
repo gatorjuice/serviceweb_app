@@ -23,9 +23,9 @@ class Api::V1::ResourceRatingsController < ApplicationController
     resource_rating.save
 
     render json: {
-      user_id: @resource_rating.user_id,
-      resource_id: @resource_rating.resource_id,
-      rating: @resource_rating.rating
+      user_id: resource_rating.user_id,
+      resource_id: resource_rating.resource_id,
+      rating: resource_rating.rating
     }
   end
 

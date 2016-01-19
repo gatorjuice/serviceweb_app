@@ -119,8 +119,9 @@ class ResourcesController < ApplicationController
     phone = params[:phone]
     address = params[:address]
     description = params[:description]
+    opt_message = params[:opt_message]
 
-    body = "Call #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com to learn more."
+    body = "#{opt_message}\nCall #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com to learn more."
     
     account_sid = ENV['TWILIO_API_ID']
     auth_token = ENV['TWILIO_API_TOKEN']

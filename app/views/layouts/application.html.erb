@@ -71,13 +71,11 @@
                 <tr>
                   <th>Score</th>
                   <th>Submissions</th>
-                  <th>Average Resource Score</th>
                   <th>Priveleges</th>
                 </tr>
                 <tr>
                   <td><%= current_user.user_score %></td>
                   <td><%= current_user.resources.count %></td>
-                  <td><%= current_user.resources.count / current_user.user_score %></td>
                   <td><%= current_user.priveleges %></td>
                 </tr>    
               </table>
