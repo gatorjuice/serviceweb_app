@@ -71,8 +71,28 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
+#food-button {
+  background: image-url('bigfoodicon.png') center no-repeat;
+}
+#food-button:hover {
+  background-color: rgba(41, 133, 232, 0.3);
+  transition: 1s;
+}
+#health-button {
+  background: image-url('bighealthicon.png') center no-repeat;
+}
+#health-button:hover {
+  background-color: rgba(41, 133, 232, 0.3);
+  transition: 1s;
+}
+#shelter-button {
+  background: image-url('bigsheltericon.png') center no-repeat;
+}
+#shelter-button:hover {
+  background-color: rgba(41, 133, 232, 0.3);
+  transition: 1s;
 
-
+}
 
 .modal-body {
   background-image: image-url('sos.png');
@@ -177,6 +197,7 @@ div.nowrap-slider [class*="span"] {  /* TWBS v2 */
 }
 
 .main-button:hover {
+  background-image: none;
   background-color: rgba(41, 133, 232, 0.3);
   transition: 1s;
 }
