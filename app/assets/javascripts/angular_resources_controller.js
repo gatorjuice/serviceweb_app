@@ -36,6 +36,7 @@
     var lat;
     var lng;
 
+
     var deferred = $q.defer();
 
 
@@ -77,6 +78,8 @@
         navigator.geolocation.getCurrentPosition(showPosition);
       }
     }
+
+
 
     function showPosition(position) {
       lat = position.coords.latitude;
@@ -150,6 +153,7 @@
         $http.get('/api/v1/resources.json?search=' + inputSearchString).then(function(response) {
           $scope.searchResults = response.data;
           $scope.resultsShown = 5;
+          $scope.searchResults.first.focus();
         });
       } else {
         $scope.resultsShown = 0;
@@ -171,6 +175,7 @@
         $scope.leaderboard = response.data;
       });
     };
+
 
     window.$scope = $scope;
   });

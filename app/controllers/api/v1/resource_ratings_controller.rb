@@ -29,4 +29,16 @@ class Api::V1::ResourceRatingsController < ApplicationController
     }
   end
 
+  def destroy
+    resource_rating_id = params[:id]
+    user_id = current_user.id
+    resource_rating = ResourceRating.find(params[:id])
+    if resource_rating.user_id == user_id
+      resource_rating.destroy
+      redirect_to "/home"
+    else
+      redirect_to "/home"
+    end
+  end
+
 end

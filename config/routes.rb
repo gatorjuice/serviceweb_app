@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  get 'demo_path' => 'resources#demo'
+  get '/demo_path' => 'resources#demo'
 
   get "/" => 'resources#home'
   get "/home" => 'resources#home'
@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       delete '/comments/:id' => 'comments_api#destroy'
 
       post '/resource_ratings' => 'resource_ratings#create'
+      delete '/resource_ratings/:id' => 'resource_ratings#destroy'
 
       get '/leaderboard' => 'resources#leaderboard'
 

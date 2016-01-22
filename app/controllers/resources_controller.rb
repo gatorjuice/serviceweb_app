@@ -98,11 +98,6 @@ class ResourcesController < ApplicationController
       @resource.destroy
       flash[:danger] = "Resource Successfully Deleted"
       redirect_to "/home"
-      if params[:from_unverified_list]
-        redirect_to "/resources?status=unverified"
-      else
-        redirect_to "/home"
-      end
     else
       flash[:warning] = "you are not authorized to delete resources"
       redirect_to "/home"
@@ -121,22 +116,26 @@ class ResourcesController < ApplicationController
     description = params[:description]
     opt_message = params[:opt_message]
 
-    body = "#{opt_message}\nCall #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com to learn more."
+    body = "#{opt_message}\n\nCall #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com to learn more."
     
     account_sid = ENV['TWILIO_API_ID']
     auth_token = ENV['TWILIO_API_TOKEN']
 
     begin
+    rescue
+      flash[:warning] = "something went wrong please try again."
+      redirect_to "/home"
+    else
       @client = Twilio::REST::Client.new account_sid, auth_token 
       @client.account.messages.create(
         from: '+17089548869',
         to: send_to_number,
         body: body    
         )
-    rescue
-      flash[:warning] = "something went wrong please try again."
-      redirect_to "/home"
-    else
+      resource = Resource.find_by(name: name)
+      shares = resource.shares
+      shares = shares + 1
+      resource.update(shares: shares)
       flash[:success] = "you have successfully shared the resource. Thank you."
       redirect_to "/home"
     end

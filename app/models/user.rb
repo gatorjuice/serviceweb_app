@@ -25,11 +25,23 @@ class User < ActiveRecord::Base
     score
   end
 
-  def priveleges
-    if user_score >= 0
+  def privileges
+    if user_score > 0
       "full access"
+    elsif user_score = 0
+      "probationary"
     else
       "restricted access"
+    end
+  end
+
+  def score_color
+    if user_score < 0
+      "danger"
+    elsif user_score == 0
+      "warning"
+    else
+      "success"
     end
   end
 

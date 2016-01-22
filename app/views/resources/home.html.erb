@@ -1,85 +1,87 @@
-<div id="home-panel"></div>
-<div class="row" id="map-row">
-    <div class="col-md-7">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Quick Share</h3>
-        </div>
-        <div class="panel-body">
-          <p>{{ panelText }}</p>
-        </div>
-        <table style="width:100%" class="table">
-          <col width="5%">
-          <col width="30%">
-          <col width="35%">
-          <col width="20%">
-          <col width="10%">
-          <tr>
-            <th></th>
-            <th>Closest Resource</th>
-            <th>Full Address</th>
-            <th>Phone</th>
-            <th>Distance</th>
-          </tr>
-          <tr>
-            <td><%= image_tag('foodicon.png') %></td>
-            <td><a href="/resources/{{closestFoodResource.resource.id}}">{{ closestFoodResource.resource.name }}</a></td>
-            <td>{{ closestFoodResource.resource.address }}</td>
-            <td>{{ formatPhoneNumber(closestFoodResource.resource.phone) }}</td>
-            <td>{{ closestFoodResource.distance | number:1 }} mi</td>
-          </tr> 
-          <tr> 
-            <td><%= image_tag('healthicon.png') %></td>
-            <td><a href="/resources/{{closestHealthResource.resource.id}}">{{ closestHealthResource.resource.name }}</td>
-            <td>{{ closestHealthResource.resource.address }}</td>
-            <td>{{ formatPhoneNumber(closestHealthResource.resource.phone) }}</td>
-            <td>{{ closestHealthResource.distance | number:1 }} mi</td>
-          </tr> 
-          <tr>
-            <td><%= image_tag('sheltericon.png') %></td>
-            <td><a href="/resources/{{closestShelterResource.resource.id}}">{{ closestShelterResource.resource.name }}</td>
-            <td>{{ closestShelterResource.resource.address }}</td>
-            <td>{{ formatPhoneNumber(closestShelterResource.resource.phone) }}</td>
-            <td>{{ closestShelterResource.distance | number:1 }} mi</td>
-          </tr>    
-        </table>
-      </div>
-    </div>
-    <div class="col-md-5 well" id="map-container">
-      <div id="map"></div>
-      <p id="demo"></p>
-    </div>
+<div id="home-panel">
 </div>
+<div class="row" id="map-row">
+  <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Quick Share</h3>
+      </div>
+      <div class="panel-body">
+        <p>{{ panelText }}</p>
+      </div>
+      <table style="width:100%" class="table">
+        <tr>
+          <th></th>
+          <th>Closest Resource</th>
+          <th>Phone</th>
+          <th class="narrow-view">Shares</th>
+          <th class="narrow-view">Score</th>
+          <th>Distance</th>
+        </tr>
+        <tr>
+          <td><%= image_tag('foodicon.png') %></td>
+          <td><a href="/resources/{{closestFoodResource.resource.id}}">{{ closestFoodResource.resource.name }}</a></td>
+          <td>{{ formatPhoneNumber(closestFoodResource.resource.phone) }}</td>
+          <td class="narrow-view">{{ closestFoodResource.shares }}</td>
+          <td class="narrow-view">{{ closestFoodResource.score }}</td>
+          <td>{{ closestFoodResource.distance | number:1 }} mi</td>
+        </tr> 
+        <tr> 
+          <td><%= image_tag('healthicon.png') %></td>
+          <td><a href="/resources/{{closestHealthResource.resource.id}}">{{ closestHealthResource.resource.name }}</td>
+          <td>{{ formatPhoneNumber(closestHealthResource.resource.phone) }}</td>
+          <td class="narrow-view">{{ closestHealthResource.shares }}</td>
+          <td class="narrow-view">{{ closestHealthResource.score }}</td>
+          <td>{{ closestHealthResource.distance | number:1 }} mi</td>
+        </tr> 
+        <tr>
+          <td><%= image_tag('sheltericon.png') %></td>
+          <td><a href="/resources/{{closestShelterResource.resource.id}}">{{ closestShelterResource.resource.name }}</td>
+          <td>{{ formatPhoneNumber(closestShelterResource.resource.phone) }}</td>
+          <td class="narrow-view">{{ closestShelterResource.shares }}</td>
+          <td class="narrow-view">{{ closestShelterResource.score }}</td>
+          <td>{{ closestShelterResource.distance | number:1 }} mi</td>
+        </tr>    
+      </table>
+    </div>
+  </div>
+  <div class="col-md-5 well" id="map-container">
+    <div id="map"></div>
+    <p id="demo"></p>
+  </div>
+</div>
+
+
 <script type="text/javascript" charset="utf-8">
   function initMap(lat, lng) {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: lat, lng: lng},
       zoom: 13
     });
-    var marker = new google.maps.Marker({
-      position: {lat, lng},
-      map: map,
-      title: 'Your Location'
-    });
-    <% @all_verified_resources.each do |resource| %>
-    <% if resource.food %>
-    <% icon_type = 'foodicon.png' %>
-    <% elsif resource.health %>
-    <% icon_type = 'healthicon.png' %>
-    <% elsif resource.shelter %>
-    <% icon_type = 'sheltericon.png' %>
-    <% end %>
-    var marker = new google.maps.Marker({
-      position: {<%= resource.lat_and_long %>},
-      map: map,
-      title: '<%= "#{resource.name}" %>',
-      icon: '<%= image_url(icon_type) %>',
-      url: '<%= "/resources/#{resource.id}" %>'
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-      window.location.href = this.url;
-    });
-    <% end %>
-  }
+    // var marker = new google.maps.Marker({
+    //   position: {lat, lng},
+    //   map: map,
+    //   title: 'Your Location'
+    // });
+<% @all_verified_resources.each do |resource| %>
+<% if resource.food %>
+<% icon_type = 'foodicon.png' %>
+<% elsif resource.health %>
+<% icon_type = 'healthicon.png' %>
+<% elsif resource.shelter %>
+<% icon_type = 'sheltericon.png' %>
+<% end %>
+var marker = new google.maps.Marker({
+  position: {<%= resource.lat_and_long %>},
+  map: map,
+  title: '<%= "#{resource.name}" %>',
+  icon: '<%= image_url(icon_type) %>',
+  url: '<%= "/resources/#{resource.id}" %>'
+});
+google.maps.event.addListener(marker, 'click', function() {
+  window.location.href = this.url;
+});
+<% end %>
+}
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOyI1tL-V4QeNZSMgXuWDaoX7usnruTJ8&callback=initMap"></script>

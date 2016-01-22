@@ -64,7 +64,9 @@ class Api::V1::ResourcesController < ApplicationController
         
         food_distance_data_array << {
           distance: distance,
-          resource: resource
+          resource: resource,
+          score: resource.score,
+          shares: resource.shares
         }
       end
     end
@@ -84,7 +86,9 @@ class Api::V1::ResourcesController < ApplicationController
         
         health_distance_data_array << {
           distance: distance,
-          resource: resource
+          resource: resource,
+          score: resource.score,
+          shares: resource.shares
         }
       end
     end
@@ -104,7 +108,9 @@ class Api::V1::ResourcesController < ApplicationController
         
         shelter_distance_data_array << {
           distance: distance,
-          resource: resource
+          resource: resource,
+          score: resource.score,
+          shares: resource.shares
         }
       end
     end
@@ -120,7 +126,8 @@ class Api::V1::ResourcesController < ApplicationController
         leaderboard << {
           resource: resource,
           services: resource.display_resources.capitalize,
-          score: resource.score
+          score: resource.score,
+          shares: resource.shares
         }
       end
     end

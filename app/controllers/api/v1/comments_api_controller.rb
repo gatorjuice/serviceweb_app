@@ -15,12 +15,12 @@ class Api::V1::CommentsApiController < ApplicationController
     comment_body = params[:inputCommentBody]
     resource_id = params[:inputResourceId]
     user_id = params[:inputUserId]
-    comment = Comment.new(
+    @comment = Comment.new(
       user_id: user_id,
       resource_id: resource_id,
       body: comment_body
       )
-    render json: { error: "your cannot submit a blank comment."} unless comment.save  
+    render json: { error: "your cannot submit a blank comment."} unless @comment.save  
   end
 
   def destroy

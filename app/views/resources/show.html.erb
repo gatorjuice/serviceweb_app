@@ -2,8 +2,9 @@
   <div class="col-md-7">
     <h3><%= @resource.name %> <small><a href="javascript:void(0)" ng-click="getLeaderboard()" data-toggle="modal" data-target="#myModal">overall score: <%= @resource.score %></a></small></h3>
     <% if @my_rating %>
-    <h5>your view is <%= @my_rating.my_rating_phrase %> </h5>
+    <h5>your view is <%= @my_rating.my_rating_phrase %> <%= link_to "Remove Vote", "/api/v1/resource_ratings/#{@my_rating.id}", method: :delete %></h5>
     <% end %>
+    <p>Times Shared: <%= @resource.shares %></p>
     <p><%= @resource.address %></p>
     <p><%= @resource.phone_with_dashes %></p>
     <p><%= @resource.description %></p>
@@ -78,7 +79,7 @@
       <% end %>
     </div>
 
-    <% if user_signed_in? && current_user.id == @resource.user_id or current_user.admin %>
+    <% if user_signed_in? && current_user.id == @resource.user_id %>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">Edit Resource</button>
     <% end %>
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -146,7 +147,7 @@
                     <%= text_area_tag :description, @resource.description, rows: 5, class: "form-control"%>
                   </div>
                 </div>
-                <% if current_user && @resource.user.id == current_user.id or current_user.admin %>
+                <% if current_user && @resource.user.id == current_user.id %>
                 <div class="form-group">
                   <div class="col-xs-6 pull-right">
                   </div>

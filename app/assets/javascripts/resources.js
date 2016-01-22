@@ -39,5 +39,9 @@ $(document).ready(function() {
     downVote();
   });
 
+  $('#search-results').on('click', function() {
+    console.log('works');
+  });
+
 
 });

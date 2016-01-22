@@ -28,11 +28,11 @@
                 <button ng-click="verifyResource(resource)" ng-mouseover="showHelp('upvote')" class="btn btn-success">
                   <span style="font-size: 30px;" class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                 </button>
-                <button ng-click="deleteResource(resource)" ng-mouseover="showHelp('downvote')" class="btn btn-danger">
-                  <span style="font-size: 30px;" class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                </button>
                 <button ng-click="unsureResource(resource)" ng-mouseover="showHelp('unsure')" class="btn btn-primary">
                   <span style="font-size: 30px;" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                </button>
+                <button ng-click="deleteResource(resource)" ng-mouseover="showHelp('downvote')" class="btn btn-danger">
+                  <span style="font-size: 30px;" class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                 </button>
               </div>
             </div>
@@ -63,7 +63,7 @@
           <div class="col-md-6">
 
             <% if current_user %>
-            <div class="panel panel-default">
+            <div class="panel panel-<%= current_user.score_color %>">
               <div class="panel-heading">
                 <h3 class="panel-title">My Status</h3>
               </div>
@@ -71,12 +71,12 @@
                 <tr>
                   <th>Score</th>
                   <th>Submissions</th>
-                  <th>Priveleges</th>
+                  <th>Privileges</th>
                 </tr>
                 <tr>
                   <td><%= current_user.user_score %></td>
                   <td><%= current_user.resources.count %></td>
-                  <td><%= current_user.priveleges %></td>
+                  <td><%= current_user.privileges %></td>
                 </tr>    
               </table>
             </div>
@@ -98,11 +98,12 @@
                 <%= link_to "my account", "/accounts/#{current_user.id}", class: "pull-right" %>
                 <% end %>
               </div>
+              <div>
+                <%= link_to "reset demo", "/demo_path", class: "pull-right" %>
+              </div>
             </div>
           </div>
-              <div class="pull-right">
-                <%= link_to "Run Demo", "/demo_path" %>
-              </div>
+             
         </div>
       </div>
       <% flash.each do |type, message| %>
@@ -114,7 +115,7 @@
 
       <%= yield %>
 
-      <div class="panel panel-default">
+      <div class="panel panel-primary">
         <div class="panel-heading">
           <div class="row">
             <div class="col-md-6">
@@ -122,9 +123,9 @@
               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#newModal">
                 Add Resource
               </button>
-              <h4>or browse resources by type.</h4>
+              <p>or browse resources by type.</p>
               <% else %> 
-              <h4>Browse resources by type.</h4>
+              <p>Browse resources by type.</p>
               <% end %>
             </div>
             <div class="col-md-6 test">
