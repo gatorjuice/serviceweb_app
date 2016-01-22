@@ -11,12 +11,23 @@ class ResourcesController < ApplicationController
   end
 
   def index
+    user_lat = session[:user_lat]
+    user_lng = session[:user_lng]
     @resources = []
     resources = Resource.where("#{params[:type]}": true)
     resources.each do |resource|
-      @resources << resource if resource.score > 0
+      distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [user_lat, user_lng])
+      if resource.score > 0 
+        @resources << {
+          resource: resource,
+          phone: resource.phone_with_dashes,
+          distance: distance.round(1),
+          user: resource.user,
+          score: resource.score
+        }
+      end
     end
-    @resources.sort_by! { |resource| resource.score }
+    @resources.sort_by! { |k| k[:distance] }
   end
 
   def new
@@ -46,7 +57,7 @@ class ResourcesController < ApplicationController
         resource_id: @resource.id,
         user_id: @resource.user_id,
         rating: 1
-      )
+        )
       flash[:success] = "Resource Successfully Created"
       redirect_to "/home"
     else
@@ -117,7 +128,7 @@ class ResourcesController < ApplicationController
     opt_message = params[:opt_message]
 
     body = "#{opt_message}\n\nCall #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com to learn more."
-    
+
     account_sid = ENV['TWILIO_API_ID']
     auth_token = ENV['TWILIO_API_TOKEN']
 

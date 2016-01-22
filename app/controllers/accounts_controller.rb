@@ -11,4 +11,17 @@ class AccountsController < ApplicationController
     end
   end
 
+  def set_position
+    @@user_lat = params[:latitude]
+    @@user_lng = params[:longitude]
+
+    session[:user_lat] = @@user_lat
+    session[:user_lng] = @@user_lng
+    
+    render json: {
+      currentLat: @@user_lat,
+      currentLng: @@user_lng
+    }
+  end
+
 end
