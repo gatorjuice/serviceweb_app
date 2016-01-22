@@ -6,19 +6,19 @@
         <th>Score</th>
         <th>Full Address</th>
         <th>Phone Number</th>
-        <th>Contributor</th>
+        <th>Distance</th>
       </tr>
       <% @resources.each do |resource| %>
       <tr>
         <td>
-          <%= link_to "/resources/#{resource.id}" do %>
-          <%= resource.name %>
+          <%= link_to "/resources/#{resource[:id]}" do %>
+          <%= resource[:resource][:name] %>
           <% end %>
         </td>
-        <td><%= resource.score %></td>
-        <td><%= resource.address %></td>
-        <td><%= resource.phone_with_dashes %></td>
-        <td><%= resource.user.full_name %></td>
+        <td><%= resource[:score] %></td>
+        <td><%= resource[:resource][:address] %></td>
+        <td><%= resource[:phone] %></td>
+        <td><%= resource[:distance] %> mi</td>
       </tr>    
       <% end %>
     </table>

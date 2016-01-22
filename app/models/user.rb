@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   def privileges
     if user_score > 0
       "full access"
-    elsif user_score = 0
+    elsif user_score == 0
       "probationary"
     else
       "restricted access"

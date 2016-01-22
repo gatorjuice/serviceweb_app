@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get "/accounts/:id" => 'accounts#show'
 
+  post '/position' => 'accounts#set_position'
+
   get '/resources' => 'resources#index'
   get '/resources/new' => 'resources#new'
   post '/resources' => 'resources#create'
