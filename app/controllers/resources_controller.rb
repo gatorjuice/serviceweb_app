@@ -50,7 +50,8 @@ class ResourcesController < ApplicationController
       phone: params[:phone],
       description: params[:description],
       street: params[:street],
-      user_id: current_user.id
+      user_id: current_user.id,
+      shares: 0
       )
     if @resource.save
       ResourceRating.create(
