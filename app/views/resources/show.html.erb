@@ -194,7 +194,7 @@
     </div>
     <div>
       <h4>About the Contributor</h4>
-      <h5><%= @resource.user.full_name %></h5>
+      <h5><%= @resource.user.full_name if @resourse.user %></h5>
       <p><%= @resource.user.description %></p>
     </div>
   </div>
