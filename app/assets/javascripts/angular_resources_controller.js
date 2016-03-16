@@ -4,7 +4,7 @@
 
 (function() {
   "use strict";
-  angular.module("app").controller("resources", function($scope, $http, $q) {
+  angular.module("app").controller("resources", ["$scope", "$http", "$q", function($scope, $http, $q) {
 
 
     var opts = {
@@ -192,5 +192,5 @@ $scope.getLeaderboard = function() {
 
 
 window.$scope = $scope;
-});
+}]);
 })();

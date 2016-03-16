@@ -1,7 +1,7 @@
 /* global angular */
 (function() {
   "use strict";
-  angular.module("app").controller("comments", function($scope, $http) {
+  angular.module("app").controller("comments", ["$scope", "$http", function($scope, $http) {
 
     $scope.setup = function() {
       var resourceId = window.location.pathname.split("/")[2];
@@ -57,5 +57,5 @@
     };
 
     window.$scope = $scope;
-  });
+  }]);
 })();
