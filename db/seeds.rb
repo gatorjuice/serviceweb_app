@@ -1,7 +1,3 @@
-User.create!([
-  {email: "inainup@yahoo.com", encrypted_password: "$2a$10$4A3G/42zxmSePy7OHXizyedQWuwx.C9d0lPJra7wXfQrVUuco7Pgm", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-03-03 23:35:17", last_sign_in_at: "2016-03-03 23:35:17", current_sign_in_ip: "::1", last_sign_in_ip: "::1", first_name: "Aatish", last_name: "Puniani", admin: false, description: nil},
-  {email: "gatorjuice@gmail.com", encrypted_password: "$2a$10$GlkUzQkwYyhSwJY16YpOrOwwGg0oKad3rEf1oXn.9YFP0fEEVKTiC", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-03-03 23:37:29", last_sign_in_at: "2016-03-03 23:37:29", current_sign_in_ip: "::1", last_sign_in_ip: "::1", first_name: "Jamie", last_name: "Gates", admin: false, description: nil}
-])
 Comment.create!([
   {resource_id: 1, user_id: 2, body: "asdf"}
 ])
