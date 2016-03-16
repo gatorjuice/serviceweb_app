@@ -159,6 +159,10 @@ class ResourcesController < ApplicationController
     redirect_to "/home"
   end
 
+  def hello_world
+    
+  end
+
 end
 
 
