@@ -2,11 +2,9 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-
-  root 'resources#hello_world'
   get '/demo_path' => 'resources#demo'
 
-  # get "/" => 'resources#home'
+  get "/" => 'resources#home'
   get "/home" => 'resources#home'
 
 

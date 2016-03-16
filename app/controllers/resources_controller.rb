@@ -13,6 +13,7 @@ class ResourcesController < ApplicationController
   def index
     user_lat = session[:user_lat]
     user_lng = session[:user_lng]
+    type = params[:type]
     @resources = []
     resources = Resource.where("#{params[:type]}": true)
     resources.each do |resource|
