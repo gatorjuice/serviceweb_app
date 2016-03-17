@@ -53,13 +53,13 @@ class ResourcesController < ApplicationController
       street: params[:street],
       user_id: current_user.id,
       shares: 0
-      )
+    )
     if @resource.save
       ResourceRating.create(
         resource_id: @resource.id,
         user_id: @resource.user_id,
         rating: 1
-        )
+      )
       flash[:success] = "Resource Successfully Created"
       redirect_to "/home"
     else
@@ -100,7 +100,7 @@ class ResourcesController < ApplicationController
       description: params[:description] || @resource.description,
       street: params[:street] || @resource.street,
       status: status
-      )
+    )
     flash[:info] = "Resource Successfully Updated"
     redirect_to "/resources/#{@resource.id}"
   end
@@ -129,7 +129,11 @@ class ResourcesController < ApplicationController
     description = params[:description]
     opt_message = params[:opt_message]
 
-    body = "#{opt_message}\n\nCall #{name}\nPhone\n#{phone}\nAddress\n#{address}\n\nCapstone attendees:\nemail me at gatorjuice@gmail.com to learn more."
+    if opt_message
+      body = "#{opt_message}\n\nCall #{name}\nPhone\n#{phone}\nAddress\n#{address}"
+    else
+      body = "Call #{name}\nPhone\n#{phone}\nAddress\n#{address}"
+    end
 
     account_sid = ENV['TWILIO_API_ID']
     auth_token = ENV['TWILIO_API_TOKEN']
@@ -153,17 +157,6 @@ class ResourcesController < ApplicationController
       redirect_to "/home"
     end
   end
-
-
-  def demo
-    ResourceRating.all.each {|x| x.destroy}
-    redirect_to "/home"
-  end
-
-  def hello_world
-    
-  end
-
 end
 
 
