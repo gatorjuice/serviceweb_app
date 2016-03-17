@@ -11,7 +11,7 @@
       <% @resources.each do |resource| %>
       <tr>
         <td>
-          <%= link_to "/resources/#{resource[:id]}" do %>
+          <%= link_to "/resources/#{resource[:resource][:id]}" do %>
           <%= resource[:resource][:name] %>
           <% end %>
         </td>
