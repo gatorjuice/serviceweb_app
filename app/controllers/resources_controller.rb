@@ -1,5 +1,4 @@
 class ResourcesController < ApplicationController
-
   require 'socket'
 
   def home
@@ -15,7 +14,7 @@ class ResourcesController < ApplicationController
     user_lng = session[:user_lng]
     type = params[:type]
     @resources = []
-    resources = Resource.where("#{params[:type]}": true)
+    resources = Resource.where(params[:type] => true)
     resources.each do |resource|
       distance = Geocoder::Calculations.distance_between([resource.latitude, resource.longitude], [user_lat, user_lng])
       if resource.score > 0 
@@ -110,11 +109,10 @@ class ResourcesController < ApplicationController
       @resource = Resource.find_by(id: params[:id])
       @resource.destroy
       flash[:danger] = "Resource Successfully Deleted"
-      redirect_to "/home"
     else
       flash[:warning] = "you are not authorized to delete resources"
-      redirect_to "/home"
     end
+    redirect_to "/home"
   end
 
   def share_form
@@ -148,7 +146,7 @@ class ResourcesController < ApplicationController
         from: '+17089548869',
         to: send_to_number,
         body: body    
-        )
+      )
       resource = Resource.find_by(name: name)
       shares = resource.shares
       shares = shares + 1
