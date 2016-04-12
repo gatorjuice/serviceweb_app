@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Resource, type: :model do
+  describe '#create' do
+    
+  end
 
   describe '#verify' do
     it 'should return an initial score of 0' do
@@ -15,5 +18,4 @@ RSpec.describe Resource, type: :model do
       expect(resource.phone_with_dashes).to eq('(555) 555-5555')
     end
   end
-
 end
