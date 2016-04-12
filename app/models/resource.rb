@@ -1,11 +1,12 @@
 class Resource < ActiveRecord::Base
-
+  validate :must_have_one_checked
   validates :name, presence: true
   validates :street, presence: true
-  validates :phone, length: { is: 10 }
-  validates :zip_code, length: { is: 5 }
-  # validates :latitude, presence: true
-  # validates :longitude, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :phone, presence: true, length: { is: 10 }
+  validates :zip_code, presence: true, length: { in: 5..10 }
+  validates :description, presence: true
 
   
   has_many :images
@@ -13,11 +14,11 @@ class Resource < ActiveRecord::Base
   belongs_to :user
   has_many :resource_ratings
 
-  geocoded_by :address   # can also be an IP address
-  after_validation :geocode, if: ->(resource){ resource.address.present? and resource.address_changed? }
+  geocoded_by :address # can also be an IP address
+  after_validation :geocode, if: ->(resource) { resource.address.present? && resource.address_changed? }
 
   reverse_geocoded_by :latitude, :longitude
-  after_validation :reverse_geocode  # auto-fetch address
+  after_validation :reverse_geocode # auto-fetch address
 
   acts_as_mappable
   
@@ -44,8 +45,6 @@ class Resource < ActiveRecord::Base
   def phone_with_dashes
     if phone != ""
       "(" + phone[0..2].to_s + ") " + phone[3..5].to_s + "-" + phone[6..9].to_s
-    else
-      nil
     end
   end
 
@@ -61,5 +60,9 @@ class Resource < ActiveRecord::Base
     total
   end
 
+  def must_have_one_checked
+    if food == false && health == false && shelter == false
+      errors.add(:resource_types, "must choose one type")
+    end
+  end
 end
-
