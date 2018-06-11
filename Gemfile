@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '2.4.1'
+ruby '2.2.0'
 gem 'dotenv-rails', :groups => [:development, :test]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
+# Use mysql as the database for Active Record
 gem 'pg'
 gem 'rails_12factor', group: :production
 #used to send sms messages
@@ -54,9 +55,9 @@ group :development do
   gem 'spring'
 end
 
-group :test do
-  gem "faker", "~> 1.4.3"
-  gem "capybara", "~> 2.4.3"
+group :test do 
+  gem "faker", "~> 1.4.3" 
+  gem "capybara", "~> 2.4.3" 
   gem "database_cleaner", "~> 1.3.0"
   gem "launchy", "~> 2.4.2"
   gem "selenium-webdriver", "~> 2.43.0"
